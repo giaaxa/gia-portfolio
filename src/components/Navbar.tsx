@@ -8,7 +8,6 @@ const navItems = [
   { label: "Highlights", href: "#highlights" },
   { label: "Featured", href: "#featured" },
   { label: "ManaVerse", href: "#manaverse" },
-  { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
   { label: "Education", href: "#education" },
   { label: "Skills", href: "#skills" },

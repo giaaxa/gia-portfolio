@@ -1,422 +1,316 @@
-import { ChevronDown, ExternalLink, Download, Mail, Linkedin } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { useEffect, useState } from "react";
+import { Mail, ExternalLink, Send, Award } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Section, SectionHeader } from "@/components/Section";
 import { GlassCard } from "@/components/GlassCard";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { ScrollProgress } from "@/components/ScrollProgress";
+import { Starfield } from "@/components/Starfield";
 import heroPortrait from "@/assets/hero-portrait.jpg";
-import holiFestival from "@/assets/holi-festival.jpg";
-import diwaliStage from "@/assets/diwali-stage.jpg";
-import manaband from "@/assets/manaband.jpg";
+import holiImage from "@/assets/holi-festival.jpg";
+import diwaliImage from "@/assets/diwali-stage.jpg";
+import manabandImage from "@/assets/manaband.jpg";
 import cosmicOrb from "@/assets/cosmic-orb.jpg";
-import { useState } from "react";
 
 const Index = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -100px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-fade-in-up");
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll(".observe-fade").forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    // Add form submission logic here
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="relative min-h-screen bg-background text-foreground">
+      <ScrollProgress />
+      <Starfield />
       <Navbar />
 
       {/* Hero Section */}
-      <Section id="home" className="flex items-center justify-center pt-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              Building thoughtful systems at the edge of{" "}
-              <span className="text-gradient">AI, design, and Dharma</span>.
+      <Section id="home" className="flex items-center justify-center relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
+          <div className="space-y-6 order-2 lg:order-1">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight observe-fade">
+              <span className="text-gradient">
+                Building thoughtful systems at the edge of AI and design.
+              </span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-xl">
-              First‑Class Economics grad. Founder in progress. Turning ancient wisdom and modern data
-              into usable tools — with heart.
+            <p className="text-xl text-muted-foreground observe-fade animate-delay-100">
+              First Class Economics graduate. Ex IBM. Building ManaVerse. Studying Data Analytics and AI at Code Institute. Data driven.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-secondary to-primary hover:opacity-90">
-                <a href="#projects">View Projects</a>
+            <div className="flex flex-wrap gap-4 observe-fade animate-delay-200">
+              <Button asChild size="lg" className="rounded-full">
+                <a href="#manaverse">View Work</a>
               </Button>
-              <Button size="lg" variant="outline">
-                <Download className="mr-2 h-4 w-4" />
-                <a href="/assets/Gia_Pereira_CV.pdf" target="_blank" rel="noopener noreferrer">
+              <Button asChild variant="outline" size="lg" className="rounded-full">
+                <a href="/assets/Gia_Pereira_CV.pdf" download>
                   Download CV
                 </a>
               </Button>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Based in the UK · Open to collabs ·{" "}
-              <a href="mailto:giapereira31@gmail.com" className="text-primary hover:underline">
-                giapereira31@gmail.com
-              </a>
-            </p>
           </div>
 
-          <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden glow-purple">
+          <div className="order-1 lg:order-2 flex justify-center observe-fade animate-delay-100">
+            <div className="relative max-w-[420px] w-full aspect-[4/5] rounded-2xl overflow-hidden glow-purple">
               <img
                 src={heroPortrait}
-                alt="Gia Pereira professional portrait with purple rim lighting"
+                alt="Gia Pereira professional portrait with purple accent lighting"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-4 -right-4 w-32 h-32">
-              <img src={cosmicOrb} alt="Cosmic purple orb" className="w-full h-full object-cover rounded-full glow-purple animate-pulse" />
-            </div>
           </div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <ChevronDown className="text-primary w-8 h-8" />
         </div>
       </Section>
 
       {/* About Section */}
       <Section id="about">
-        <SectionHeader overline="Introduction" title="About" />
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <p className="text-lg text-muted-foreground">
-              I'm Gia — an economics graduate (First‑Class) who blends brand strategy, data, and design
-              to build human‑centred products. I'm currently prototyping <span className="text-primary font-semibold">ManaVerse</span>,
-              a calm tech layer that guides mindfulness like a friend — and I'm studying{" "}
-              <span className="text-primary font-semibold">Data Analytics & AI</span> (Code Institute),
-              learning Python to grow into a truly technical founder.
-            </p>
-            <p className="text-lg text-muted-foreground">
-              I care about clarity, aesthetics, and practical spirituality.
+        <SectionHeader overline="Get to know me" title="About" />
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-4 observe-fade">
+            <p className="text-lg leading-relaxed text-foreground">
+              I'm Gia Pereira. I blend brand thinking, data and design to build products that people use. I lead teams with clarity and care. Currently prototyping ManaVerse. I am also studying full time Data Analytics and AI at Code Institute and learning Python to transition into a technical founder.
             </p>
           </div>
 
-          <GlassCard>
-            <h3 className="text-xl font-semibold mb-4 text-primary">Fast facts</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Dean's List, University of Essex.
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                President, <span className="font-semibold">Hindu Society</span> &{" "}
-                <span className="font-semibold">Economics Society</span>.
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Ex‑IBM (SAP Junior Consultant) & <span className="font-semibold">Aesthetica</span> (Brand
-                & Social Strategist).
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Currently recruiting, testing, and building the foundation for{" "}
-                <span className="font-semibold">ManaVerse</span>.
-              </li>
-            </ul>
+          <GlassCard className="p-6 space-y-3 observe-fade animate-delay-100">
+            <h3 className="text-xl font-semibold text-primary mb-4">Fast facts</h3>
+            <p className="text-foreground">Dean's List at the University of Essex.</p>
+            <p className="text-foreground">President of the Hindu Society and the Economics Society.</p>
+            <p className="text-foreground">IBM placement as Junior SAP Consultant. Brand and Social Strategy at Aesthetica.</p>
+            <p className="text-foreground">Now recruiting, testing and building the foundation for ManaVerse.</p>
           </GlassCard>
         </div>
       </Section>
 
       {/* Highlights Section */}
       <Section id="highlights">
-        <SectionHeader overline="Impact" title="Highlights" />
+        <SectionHeader overline="Impact snapshots" title="Highlights" />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <GlassCard className="text-center">
-            <div className="text-5xl font-bold text-gradient mb-2">1,000+</div>
-            <p className="text-muted-foreground">Students at university‑wide Holi Festival (lead organiser)</p>
+          <GlassCard className="p-6 text-center observe-fade">
+            <div className="text-4xl font-bold text-primary mb-2">1,000+</div>
+            <p className="text-muted-foreground">Holi festival attendance over one thousand</p>
           </GlassCard>
-          <GlassCard className="text-center">
-            <div className="text-5xl font-bold text-gradient mb-2">150+</div>
-            <p className="text-muted-foreground">At Diwali Ball · scaled society to 60+ members as President</p>
+
+          <GlassCard className="p-6 text-center observe-fade animate-delay-100">
+            <div className="text-4xl font-bold text-primary mb-2">150+</div>
+            <p className="text-muted-foreground">Diwali ball one hundred fifty plus</p>
           </GlassCard>
-          <GlassCard className="text-center">
-            <div className="text-5xl font-bold text-gradient mb-2">+40%</div>
-            <p className="text-muted-foreground">Engagement uplift on LinkedIn campaigns (content strategy)</p>
+
+          <GlassCard className="p-6 text-center observe-fade animate-delay-200">
+            <div className="text-4xl font-bold text-primary mb-2">60+</div>
+            <p className="text-muted-foreground">Society growth to sixty members</p>
           </GlassCard>
-          <GlassCard className="text-center">
-            <div className="text-5xl font-bold text-gradient mb-2">IBM</div>
-            <p className="text-muted-foreground">Led cross‑functional finance testing, coordinating offshore teams</p>
+
+          <GlassCard className="p-6 text-center observe-fade animate-delay-300">
+            <div className="text-4xl font-bold text-primary mb-2">+40%</div>
+            <p className="text-muted-foreground">LinkedIn engagement up forty percent</p>
           </GlassCard>
-          <GlassCard className="text-center">
-            <div className="text-5xl font-bold text-gradient mb-2">First‑Class</div>
-            <p className="text-muted-foreground">Dean's List · First‑Class in Economics</p>
+
+          <GlassCard className="p-6 text-center observe-fade animate-delay-100">
+            <Award className="w-8 h-8 text-primary mx-auto mb-3" />
+            <p className="text-muted-foreground">Led cross functional finance testing coordinating offshore teams at IBM</p>
+          </GlassCard>
+
+          <GlassCard className="p-6 text-center observe-fade animate-delay-200">
+            <Award className="w-8 h-8 text-primary mx-auto mb-3" />
+            <p className="text-muted-foreground">Dean's List and First Class in Economics</p>
           </GlassCard>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mt-12">
-          <div className="rounded-2xl overflow-hidden">
-            <img src={holiFestival} alt="Holi festival celebration with colorful powder and large crowd of students" className="w-full h-full object-cover" />
+          <div className="relative rounded-2xl overflow-hidden aspect-video observe-fade">
+            <img
+              src={holiImage}
+              alt="Over one thousand students at university wide Holi Festival showing vibrant colors and celebration"
+              className="w-full h-full object-cover"
+            />
           </div>
-          <div className="rounded-2xl overflow-hidden">
-            <img src={diwaliStage} alt="Elegant Diwali ball stage with golden and purple lighting" className="w-full h-full object-cover" />
+          <div className="relative rounded-2xl overflow-hidden aspect-video observe-fade animate-delay-100">
+            <img
+              src={diwaliImage}
+              alt="Diwali Ball stage setup with purple and gold lighting and over one hundred fifty attendees"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </Section>
 
       {/* Featured Section */}
       <Section id="featured">
-        <SectionHeader overline="LinkedIn" title="Featured" />
-        <div className="mb-8">
-          <h3 className="text-2xl font-semibold text-primary mb-2">
-            AI × Conscious Design · Co‑Founder of ManaShakti · Ex‑IBM SAP · First‑Class Economics
-          </h3>
-        </div>
+        <SectionHeader overline="Online presence" title="Featured" />
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <GlassCard className="p-8 text-center space-y-4 observe-fade hover:scale-105 transition-transform">
+            <div className="w-full aspect-video rounded-lg overflow-hidden mb-4">
+              <img
+                src={cosmicOrb}
+                alt="ManaShakti demo preview showing the interface design"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h3 className="text-xl font-semibold text-foreground">ManaShakti Demo</h3>
+            <Button asChild size="lg" className="w-full rounded-full">
+              <a href="https://manashakti.xyz/" target="_blank" rel="noopener noreferrer">
+                View Demo
+                <ExternalLink className="ml-2 w-4 h-4" />
+              </a>
+            </Button>
+          </GlassCard>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <GlassCard>
-            <h4 className="font-semibold mb-2">Pinned Post</h4>
-            <p className="text-sm text-muted-foreground mb-4">
-              "My real working stack (student‑founder)"
-            </p>
-            <Button variant="outline" size="sm">
-              <ExternalLink className="mr-2 h-4 w-4" />
-              View Post
+          <GlassCard className="p-8 text-center space-y-4 observe-fade animate-delay-100 hover:scale-105 transition-transform">
+            <div className="w-full aspect-video rounded-lg overflow-hidden mb-4 bg-muted flex items-center justify-center">
+              <p className="text-muted-foreground">Social media portfolio thumbnail</p>
+            </div>
+            <h3 className="text-xl font-semibold text-foreground">Social Media Portfolio</h3>
+            <Button asChild size="lg" variant="outline" className="w-full rounded-full">
+              <a href="#contact">
+                Get Link
+                <ExternalLink className="ml-2 w-4 h-4" />
+              </a>
             </Button>
           </GlassCard>
-          <GlassCard>
-            <h4 className="font-semibold mb-2">Carousel</h4>
-            <p className="text-sm text-muted-foreground mb-4">
-              "Designing calm tech: ManaShakti"
-            </p>
-            <Button variant="outline" size="sm">
-              <ExternalLink className="mr-2 h-4 w-4" />
-              View Post
-            </Button>
-          </GlassCard>
-          <GlassCard>
-            <h4 className="font-semibold mb-2">Article/Note</h4>
-            <p className="text-sm text-muted-foreground mb-4">
-              "Why I'm learning Python as a founder"
-            </p>
-            <Button variant="outline" size="sm">
-              <ExternalLink className="mr-2 h-4 w-4" />
-              View Article
-            </Button>
-          </GlassCard>
-        </div>
-
-        <div className="flex flex-wrap gap-4">
-          <Button variant="outline">
-            <Linkedin className="mr-2 h-4 w-4" />
-            <a href="https://linkedin.com/in/gia-pereira-3279631a4" target="_blank" rel="noopener noreferrer">
-              View LinkedIn
-            </a>
-          </Button>
-          <Button variant="outline">
-            <Download className="mr-2 h-4 w-4" />
-            Download Media Kit
-          </Button>
         </div>
       </Section>
 
       {/* ManaVerse Section */}
       <Section id="manaverse">
-        <SectionHeader overline="Flagship Project" title="ManaVerse" />
-        <div className="space-y-8">
-          <div className="text-center">
-            <h3 className="text-3xl font-bold mb-4">
-              Calm tech for modern minds — <span className="text-gradient">ancient wisdom, adaptive AI</span>
-            </h3>
-            <p className="text-xl text-primary font-semibold">Make your mind YOUR home.</p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            <GlassCard>
-              <h4 className="text-xl font-semibold mb-4 text-primary">What I'm doing now</h4>
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-start">
-                  <span className="text-primary mr-2">•</span>
-                  <span><strong>Prototyping:</strong> phone + voice demo; designing flows; testing early prompts; embedding 3D brand moments.</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-primary mr-2">•</span>
-                  <span><strong>Recruiting:</strong> technical collaborators/advisors; shaping a culture of clarity, kindness, and craft.</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-primary mr-2">•</span>
-                  <span><strong>Foundation:</strong> ops, research, market fit, and investor‑ready storytelling.</span>
-                </li>
-              </ul>
-            </GlassCard>
-
-            <GlassCard>
-              <h4 className="text-xl font-semibold mb-4 text-primary">Core System</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• <strong>Awareness Graph</strong> — micro‑signals → live inner‑state</li>
-                <li>• <strong>Next‑Best Practice Engine</strong> — one precise practice, right now</li>
-                <li>• <strong>Mirror‑of‑Consciousness</strong> — gentle self‑reflection</li>
-                <li>• <strong>Wisdom Graph + Evidence Base</strong> — lineage + science</li>
-                <li>• <strong>Practice Composer</strong> — context‑true, safe, provenance</li>
-              </ul>
-            </GlassCard>
-          </div>
+        <SectionHeader overline="Flagship project" title="ManaVerse" />
+        
+        <div className="space-y-12">
+          <p className="text-xl leading-relaxed text-foreground max-w-4xl observe-fade">
+            We're building ManaVerse, a movement and ecosystem designed to merge consciousness, technology, and design into everyday life. Our vision is to make mental clarity, emotional intelligence, and inner awareness as habitual as checking your phone.
+          </p>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <GlassCard>
-              <h4 className="text-xl font-semibold mb-4 text-primary">ManaBand</h4>
-              <img src={manaband} alt="ManaBand wristband device with purple LED accents" className="w-full rounded-lg mb-4" />
-              <p className="text-muted-foreground">
-                Privacy‑first wristband (HRV, EDA, motion, sleep) → haptic breath pacing, Prāṇa Score, Sankalpa nudges.
+            {/* ManaBand */}
+            <GlassCard className="p-8 space-y-6 observe-fade">
+              <h3 className="text-2xl font-bold text-primary">ManaBand</h3>
+              <p className="text-foreground leading-relaxed">
+                A privacy first wristband that supports breath pacing and tracks HRV, EDA, motion and sleep. It contributes to a simple Prana Score and gives gentle nudges.
               </p>
+              <div className="aspect-video rounded-lg overflow-hidden bg-muted relative">
+                <img
+                  src={manabandImage}
+                  alt="ManaBand wristband device showing sleek design and interface"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-background/80">
+                  <p className="text-sm text-muted-foreground px-4 text-center">
+                    ManaBand concept video (replace src with Loom or YouTube link)
+                  </p>
+                </div>
+              </div>
             </GlassCard>
 
-            <GlassCard>
-              <h4 className="text-xl font-semibold mb-4 text-primary">Mana — Brain Stone</h4>
-              <p className="text-muted-foreground mb-4">
-                Off‑phone companion for ultra‑quick resets: tap → practice; long‑press → emergency; glow/breathe cues. Hands‑off deeper flows to the app.
+            {/* Brain Stone */}
+            <GlassCard className="p-8 space-y-6 observe-fade animate-delay-100">
+              <h3 className="text-2xl font-bold text-primary">Mana Brain Stone</h3>
+              <p className="text-foreground leading-relaxed">
+                A small off phone companion for quick resets. Tap to begin a practice. Long press for an emergency reset. The light breathes to guide attention. The app handles deeper work.
               </p>
-              <div className="bg-muted/20 rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
-                  <strong>Early Traction:</strong> 103 survey responses, 50 waitlist sign‑ups, 94.4% organic views
+              <div className="aspect-[3/2] rounded-lg overflow-hidden bg-muted flex items-center justify-center">
+                <p className="text-sm text-muted-foreground px-4 text-center">
+                  Brain Stone image placeholder
                 </p>
               </div>
             </GlassCard>
           </div>
 
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Button>View Demo</Button>
-            <Button variant="outline">View Deck</Button>
-            <Button variant="outline">Notion Wiki</Button>
-          </div>
-        </div>
-      </Section>
-
-      {/* Projects Section */}
-      <Section id="projects">
-        <SectionHeader overline="Portfolio" title="Projects" />
-        <div className="grid md:grid-cols-2 gap-6">
-          <GlassCard>
-            <h3 className="text-xl font-semibold mb-2">Aesthetica — Brand & Social Strategy</h3>
-            <p className="text-sm text-muted-foreground mb-4">Apr 2024 – Aug 2024</p>
-            <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Built AI‑first creative systems for fashion/lifestyle
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Increased inbound interest and engagement
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Rapid competitor scans and positioning
-              </li>
-            </ul>
+          {/* Early Traction */}
+          <GlassCard className="p-8 observe-fade">
+            <h3 className="text-2xl font-bold text-primary mb-6">Early traction</h3>
+            <div className="space-y-3 text-foreground">
+              <p>One hundred three survey responses with full consent.</p>
+              <p>Fifty plus people on the waitlist.</p>
+              <p>Ninety four point four percent of views were organic.</p>
+            </div>
           </GlassCard>
 
-          <GlassCard>
-            <h3 className="text-xl font-semibold mb-2">IBM — SAP Junior Consultant</h3>
-            <p className="text-sm text-muted-foreground mb-4">Aug 2023 – Aug 2024</p>
-            <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Finance Testing Coordinator across time zones
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Contributed to GenAI initiative improving ops
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Drove efficiency for large SAP programs
-              </li>
-            </ul>
-          </GlassCard>
-
-          <GlassCard>
-            <h3 className="text-xl font-semibold mb-2">DPU — Content & Outreach</h3>
-            <p className="text-sm text-muted-foreground mb-4">Jul 2019 – Present</p>
-            <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Wrote finance explainers for APAC clients
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Managed LinkedIn campaigns → +40% engagement
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Helped build a knowledge hub
-              </li>
-            </ul>
-          </GlassCard>
-
-          <GlassCard>
-            <h3 className="text-xl font-semibold mb-2">Pandit GVS — Community & Rituals</h3>
-            <p className="text-sm text-muted-foreground mb-4">Community work</p>
-            <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Youth‑friendly explainers on dharma
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Event coordination + growth
-              </li>
-              <li className="flex items-start">
-                <span className="text-primary mr-2">•</span>
-                Visual identity touch‑ups
-              </li>
-            </ul>
-          </GlassCard>
+          <p className="text-sm text-muted-foreground text-center observe-fade">
+            Make your mind YOUR home.
+          </p>
         </div>
       </Section>
 
       {/* Experience Section */}
       <Section id="experience">
-        <SectionHeader overline="Career" title="Experience" />
+        <SectionHeader overline="Work history" title="Experience" />
         <div className="space-y-6">
-          <GlassCard>
+          <GlassCard className="p-6 observe-fade">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
               <div>
-                <h3 className="text-xl font-semibold">Aesthetica Studio — Brand & Social Strategist</h3>
-                <p className="text-muted-foreground">Remote</p>
+                <h3 className="text-xl font-semibold text-primary">Brand and Social Strategist</h3>
+                <p className="text-muted-foreground">Aesthetica Studio</p>
               </div>
-              <p className="text-muted-foreground">Apr 2024 – Aug 2024</p>
+              <p className="text-sm text-muted-foreground">Apr 2024 to Aug 2024 · Remote</p>
             </div>
-            <ul className="space-y-2 text-muted-foreground">
-              <li>• End‑to‑end brand/content systems for AI‑first campaigns</li>
-              <li>• Direct founder collab; engagement ↑; inbound ↑</li>
-              <li>• Rapid research + positioning kits</li>
+            <ul className="space-y-2 text-foreground">
+              <li>End to end brand and content systems for AI first campaigns.</li>
+              <li>Direct founder collaboration. Engagement increased. Inbound interest increased.</li>
+              <li>Rapid research and positioning kits.</li>
             </ul>
           </GlassCard>
 
-          <GlassCard>
+          <GlassCard className="p-6 observe-fade animate-delay-100">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
               <div>
-                <h3 className="text-xl font-semibold">IBM — SAP Junior Consultant</h3>
-                <p className="text-muted-foreground">London</p>
+                <h3 className="text-xl font-semibold text-primary">SAP Junior Consultant</h3>
+                <p className="text-muted-foreground">IBM</p>
               </div>
-              <p className="text-muted-foreground">Aug 2023 – Aug 2024</p>
+              <p className="text-sm text-muted-foreground">Aug 2023 to Aug 2024 · London</p>
             </div>
-            <ul className="space-y-2 text-muted-foreground">
-              <li>• Led finance testing co‑ordination; offshore sync</li>
-              <li>• Contributed to GenAI Implementation Initiative</li>
-              <li>• Ops strategies for large SAP projects; team events 50+</li>
+            <ul className="space-y-2 text-foreground">
+              <li>Led finance testing coordination. Offshore team synchronization.</li>
+              <li>Contributed to GenAI Implementation Initiative.</li>
+              <li>Operations strategies for large SAP projects. Team events fifty plus attendees.</li>
             </ul>
           </GlassCard>
 
-          <GlassCard>
+          <GlassCard className="p-6 observe-fade animate-delay-200">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
               <div>
-                <h3 className="text-xl font-semibold">DPU — Content Writer</h3>
-                <p className="text-muted-foreground">Remote</p>
+                <h3 className="text-xl font-semibold text-primary">Content Writer</h3>
+                <p className="text-muted-foreground">DPU</p>
               </div>
-              <p className="text-muted-foreground">Jul 2019 – Present</p>
+              <p className="text-sm text-muted-foreground">Jul 2019 to Present · Remote</p>
             </div>
-            <ul className="space-y-2 text-muted-foreground">
-              <li>• Finance articles for APAC banks; clear, actionable</li>
-              <li>• LinkedIn strategy → +40% engagement</li>
+            <ul className="space-y-2 text-foreground">
+              <li>Finance articles for APAC banks. Clear and actionable.</li>
+              <li>LinkedIn strategy resulted in forty percent engagement increase.</li>
             </ul>
           </GlassCard>
 
-          <div className="flex justify-center mt-8">
-            <Button variant="outline">
-              <Download className="mr-2 h-4 w-4" />
-              Download CV
+          <div className="flex justify-center mt-8 observe-fade">
+            <Button asChild variant="outline" size="lg" className="rounded-full">
+              <a href="/assets/Gia_Pereira_CV.pdf" download>
+                Download CV
+              </a>
             </Button>
           </div>
         </div>
@@ -424,31 +318,44 @@ const Index = () => {
 
       {/* Education Section */}
       <Section id="education">
-        <SectionHeader overline="Academic" title="Education" />
+        <SectionHeader overline="Academic background" title="Education" />
         <div className="space-y-6">
-          <GlassCard>
-            <h3 className="text-2xl font-semibold mb-2">University of Essex</h3>
-            <p className="text-primary font-semibold mb-2">BA International Economics (First‑Class)</p>
-            <p className="text-muted-foreground mb-4">2021–2025 · Dean's List</p>
-            <p className="text-muted-foreground">
-              Relevant: Markets, Trade Policy, Quantitative Methods, Micro/Macro (intermediate)
+          <GlassCard className="p-6 observe-fade">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+              <div>
+                <h3 className="text-xl font-semibold text-primary">
+                  BA International Economics (First Class)
+                </h3>
+                <p className="text-muted-foreground">University of Essex</p>
+              </div>
+              <p className="text-sm text-muted-foreground">2021 to 2025 · Dean's List</p>
+            </div>
+            <p className="text-foreground">
+              Relevant modules included Markets, Trade Policy, Quantitative Methods, Intermediate Microeconomics and Macroeconomics.
             </p>
           </GlassCard>
 
-          <GlassCard>
-            <h3 className="text-2xl font-semibold mb-2">Code Institute</h3>
-            <p className="text-primary font-semibold mb-2">Data Analytics & AI</p>
-            <p className="text-muted-foreground mb-4">Nov 2025 → Mar 2026 (ongoing)</p>
-            <p className="text-muted-foreground">
-              Python foundations → NumPy/Pandas → Visualisation (Matplotlib/Plotly) → EDA & Dashboards
-              (Power BI/Tableau) → ML fundamentals → AI ethics → Capstone
+          <GlassCard className="p-6 observe-fade animate-delay-100">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+              <div>
+                <h3 className="text-xl font-semibold text-primary">Data Analytics and AI</h3>
+                <p className="text-muted-foreground">Code Institute</p>
+              </div>
+              <p className="text-sm text-muted-foreground">November 2025 to March 2026 (ongoing)</p>
+            </div>
+            <p className="text-foreground">
+              Python foundations then NumPy and Pandas then Visualisation with Matplotlib and Plotly then EDA and Dashboards with Power BI and Tableau then ML fundamentals then AI ethics then Capstone.
             </p>
           </GlassCard>
 
-          <GlassCard>
-            <h3 className="text-2xl font-semibold mb-2">Old Swinford Hospital Sixth Form</h3>
-            <p className="text-primary font-semibold mb-2">A‑Levels</p>
-            <p className="text-muted-foreground">Economics (B), Psychology (B), Chemistry (D)</p>
+          <GlassCard className="p-6 observe-fade animate-delay-200">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+              <div>
+                <h3 className="text-xl font-semibold text-primary">A Levels</h3>
+                <p className="text-muted-foreground">Old Swinford Hospital Sixth Form</p>
+              </div>
+            </div>
+            <p className="text-foreground">Economics (B), Psychology (B), Chemistry (D)</p>
           </GlassCard>
         </div>
       </Section>
@@ -456,50 +363,89 @@ const Index = () => {
       {/* Skills Section */}
       <Section id="skills">
         <SectionHeader overline="Capabilities" title="Skills" />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <GlassCard>
-            <h4 className="text-lg font-semibold mb-3 text-primary">Strategy & Ops</h4>
-            <p className="text-muted-foreground">
-              Research sprints, positioning, go‑to‑market, outreach
+        <div className="grid md:grid-cols-2 gap-6">
+          <GlassCard className="p-6 observe-fade">
+            <h3 className="text-lg font-semibold text-primary mb-3">Strategy and Operations</h3>
+            <p className="text-foreground">
+              Research sprints and positioning and go to market and outreach.
             </p>
           </GlassCard>
 
-          <GlassCard>
-            <h4 className="text-lg font-semibold mb-3 text-primary">Data & Analysis</h4>
-            <p className="text-muted-foreground">
-              Excel, Power BI, structured problem solving; learning Python, NumPy, Pandas
+          <GlassCard className="p-6 observe-fade animate-delay-100">
+            <h3 className="text-lg font-semibold text-primary mb-3">Data and Analysis</h3>
+            <p className="text-foreground">
+              Excel and Power BI and structured problem solving. Learning Python and NumPy and Pandas.
             </p>
           </GlassCard>
 
-          <GlassCard>
-            <h4 className="text-lg font-semibold mb-3 text-primary">Product & Brand</h4>
-            <p className="text-muted-foreground">UX writing, content systems, visual direction</p>
-          </GlassCard>
-
-          <GlassCard>
-            <h4 className="text-lg font-semibold mb-3 text-primary">Tools</h4>
-            <p className="text-muted-foreground">
-              SAP, Excel, Power BI, Canva; Jupyter, Git basics (in progress)
+          <GlassCard className="p-6 observe-fade animate-delay-200">
+            <h3 className="text-lg font-semibold text-primary mb-3">Product and Brand</h3>
+            <p className="text-foreground">
+              UX writing and content systems and visual direction.
             </p>
           </GlassCard>
 
-          <GlassCard>
-            <h4 className="text-lg font-semibold mb-3 text-primary">People</h4>
-            <p className="text-muted-foreground">
-              Cross‑functional coordination; clear, warm communication
+          <GlassCard className="p-6 observe-fade animate-delay-300">
+            <h3 className="text-lg font-semibold text-primary mb-3">Tools</h3>
+            <p className="text-foreground">
+              SAP and Excel and Power BI and Canva. Jupyter and Git basics in progress.
             </p>
           </GlassCard>
 
-          <GlassCard>
-            <h4 className="text-lg font-semibold mb-3 text-primary">Learning Path</h4>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• Nov 2025: Python core</li>
-              <li>• Dec 2025: NumPy, Pandas</li>
-              <li>• Jan 2026: EDA, dashboards</li>
-              <li>• Feb 2026: ML, AI ethics</li>
-              <li>• Mar 2026: Capstone</li>
-            </ul>
+          <GlassCard className="p-6 observe-fade animate-delay-100">
+            <h3 className="text-lg font-semibold text-primary mb-3">People</h3>
+            <p className="text-foreground">
+              Cross functional coordination. Clear and warm communication.
+            </p>
           </GlassCard>
+        </div>
+
+        <div className="mt-12">
+          <h3 className="text-2xl font-bold text-gradient mb-6 observe-fade">Learning Path</h3>
+          <div className="space-y-4">
+            <GlassCard className="p-4 observe-fade">
+              <div className="flex items-start gap-4">
+                <div className="text-primary font-bold min-w-[100px]">Nov 2025</div>
+                <p className="text-foreground">
+                  Python core with variables and types and flow control and iteration.
+                </p>
+              </div>
+            </GlassCard>
+
+            <GlassCard className="p-4 observe-fade animate-delay-100">
+              <div className="flex items-start gap-4">
+                <div className="text-primary font-bold min-w-[100px]">Dec 2025</div>
+                <p className="text-foreground">
+                  Data wrangling with NumPy and Pandas. Data sources and governance. Matplotlib and Plotly.
+                </p>
+              </div>
+            </GlassCard>
+
+            <GlassCard className="p-4 observe-fade animate-delay-200">
+              <div className="flex items-start gap-4">
+                <div className="text-primary font-bold min-w-[100px]">Jan 2026</div>
+                <p className="text-foreground">
+                  Probability and EDA and dashboards with Power BI and Tableau and Qlik.
+                </p>
+              </div>
+            </GlassCard>
+
+            <GlassCard className="p-4 observe-fade animate-delay-300">
+              <div className="flex items-start gap-4">
+                <div className="text-primary font-bold min-w-[100px]">Feb 2026</div>
+                <p className="text-foreground">
+                  ML with Python including regression and clustering and evaluation. Case studies. AI ethics.
+                </p>
+              </div>
+            </GlassCard>
+
+            <GlassCard className="p-4 observe-fade">
+              <div className="flex items-start gap-4">
+                <div className="text-primary font-bold min-w-[100px]">Mar 2026</div>
+                <p className="text-foreground">Capstone and Hackathon 2. Careers support.</p>
+              </div>
+            </GlassCard>
+          </div>
         </div>
       </Section>
 
@@ -507,25 +453,39 @@ const Index = () => {
       <Section id="certifications">
         <SectionHeader overline="Credentials" title="Certifications" />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <GlassCard>
-            <h4 className="font-semibold mb-2">Microsoft Excel: Basic Formulas & Functions</h4>
-            <p className="text-sm text-muted-foreground">Coursera, 2023</p>
+          <GlassCard className="p-6 text-center observe-fade">
+            <Award className="w-8 h-8 text-primary mx-auto mb-3" />
+            <h3 className="font-semibold text-foreground mb-2">Microsoft Excel</h3>
+            <p className="text-sm text-muted-foreground">Basic Formulas and Functions</p>
+            <p className="text-xs text-muted-foreground mt-2">Coursera, 2023</p>
           </GlassCard>
-          <GlassCard>
-            <h4 className="font-semibold mb-2">Global Leadership</h4>
-            <p className="text-sm text-muted-foreground">University of Groningen, 2020</p>
+
+          <GlassCard className="p-6 text-center observe-fade animate-delay-100">
+            <Award className="w-8 h-8 text-primary mx-auto mb-3" />
+            <h3 className="font-semibold text-foreground mb-2">Global Leadership</h3>
+            <p className="text-sm text-muted-foreground">University of Groningen</p>
+            <p className="text-xs text-muted-foreground mt-2">2020</p>
           </GlassCard>
-          <GlassCard>
-            <h4 className="font-semibold mb-2">Mandarin Beginner</h4>
-            <p className="text-sm text-muted-foreground">University of Essex, 2022</p>
+
+          <GlassCard className="p-6 text-center observe-fade animate-delay-200">
+            <Award className="w-8 h-8 text-primary mx-auto mb-3" />
+            <h3 className="font-semibold text-foreground mb-2">Mandarin Beginner</h3>
+            <p className="text-sm text-muted-foreground">University of Essex</p>
+            <p className="text-xs text-muted-foreground mt-2">2022</p>
           </GlassCard>
-          <GlassCard>
-            <h4 className="font-semibold mb-2">International Relations</h4>
-            <p className="text-sm text-muted-foreground">University of Groningen, 2020</p>
+
+          <GlassCard className="p-6 text-center observe-fade animate-delay-300">
+            <Award className="w-8 h-8 text-primary mx-auto mb-3" />
+            <h3 className="font-semibold text-foreground mb-2">International Relations</h3>
+            <p className="text-sm text-muted-foreground">University of Groningen</p>
+            <p className="text-xs text-muted-foreground mt-2">2020</p>
           </GlassCard>
-          <GlassCard>
-            <h4 className="font-semibold mb-2">Duke of Edinburgh</h4>
-            <p className="text-sm text-muted-foreground">Bronze, 2018</p>
+
+          <GlassCard className="p-6 text-center observe-fade">
+            <Award className="w-8 h-8 text-primary mx-auto mb-3" />
+            <h3 className="font-semibold text-foreground mb-2">Duke of Edinburgh</h3>
+            <p className="text-sm text-muted-foreground">Bronze</p>
+            <p className="text-xs text-muted-foreground mt-2">2018</p>
           </GlassCard>
         </div>
       </Section>
@@ -533,18 +493,20 @@ const Index = () => {
       {/* Dissertation Section */}
       <Section id="dissertation">
         <SectionHeader overline="Research" title="Dissertation" />
-        <GlassCard className="max-w-4xl mx-auto">
-          <h3 className="text-2xl font-semibold mb-4 text-primary">
+        <GlassCard className="p-8 max-w-4xl mx-auto observe-fade">
+          <h3 className="text-2xl font-bold text-primary mb-4">
             How do fintech innovations influence competitive dynamics and market concentration in banking?
           </h3>
-          <p className="text-muted-foreground mb-6">
-            A literature‑informed analysis of fintech's structural impact on banks' competitive behaviour. I
-            explore how scale and networks can entrench incumbents or empower entrants, and what
-            policy/design levers moderate concentration.
+          <p className="text-foreground leading-relaxed mb-6">
+            A literature informed analysis of fintech's structural impact on banks' competitive behaviour. I explore how scale and networks can entrench incumbents or empower entrants, and what policy and design levers moderate concentration.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button variant="outline">Read Abstract</Button>
-            <Button variant="outline">Request Full PDF</Button>
+            <Button variant="outline" className="rounded-full">
+              Read Abstract
+            </Button>
+            <Button variant="outline" className="rounded-full">
+              Request Full PDF
+            </Button>
           </div>
         </GlassCard>
       </Section>
@@ -552,79 +514,71 @@ const Index = () => {
       {/* Contact Section */}
       <Section id="contact">
         <SectionHeader overline="Get in touch" title="Contact" />
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div className="space-y-6">
-            <GlassCard>
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+          <div className="space-y-6 observe-fade">
+            <GlassCard className="p-6">
               <div className="flex items-center gap-3 mb-2">
-                <Mail className="text-primary" />
-                <h4 className="font-semibold">Email</h4>
+                <Mail className="w-5 h-5 text-primary" />
+                <h3 className="font-semibold text-foreground">Email</h3>
               </div>
               <a
-                href="mailto:giapereira31@gmail.com"
+                href="mailto:manaashakti@gmail.com"
                 className="text-primary hover:underline"
               >
-                giapereira31@gmail.com
+                manaashakti@gmail.com
               </a>
             </GlassCard>
 
-            <GlassCard>
+            <GlassCard className="p-6">
               <div className="flex items-center gap-3 mb-2">
-                <Linkedin className="text-primary" />
-                <h4 className="font-semibold">LinkedIn</h4>
+                <ExternalLink className="w-5 h-5 text-primary" />
+                <h3 className="font-semibold text-foreground">Website</h3>
               </div>
               <a
-                href="https://linkedin.com/in/gia-pereira-3279631a4"
+                href="https://manashakti.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
               >
-                /in/gia-pereira-3279631a4
+                https://manashakti.app/
               </a>
             </GlassCard>
 
             <p className="text-sm text-muted-foreground">
-              I reply within 72 hours. Your information is kept private.
+              I usually reply within seventy two hours.
             </p>
           </div>
 
-          <GlassCard>
+          <GlassCard className="p-6 observe-fade animate-delay-100">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Name
-                </label>
                 <Input
-                  id="name"
+                  placeholder="Your name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email
-                </label>
                 <Input
-                  id="email"
                   type="email"
+                  placeholder="Your email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message
-                </label>
                 <Textarea
-                  id="message"
-                  rows={5}
+                  placeholder="Your message"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
+                  rows={5}
                 />
               </div>
-              <Button type="submit" className="w-full bg-gradient-to-r from-secondary to-primary">
+              <Button type="submit" className="w-full rounded-full">
+                <Send className="w-4 h-4 mr-2" />
                 Send Message
               </Button>
             </form>
@@ -633,11 +587,10 @@ const Index = () => {
       </Section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-8">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Gia Pereira. Built with clarity, care, and cosmic vibes.
-          </p>
+      <footer className="py-8 px-6 border-t border-border/50 relative z-10">
+        <div className="max-w-7xl mx-auto text-center text-sm text-muted-foreground">
+          <p>Built with clarity and care</p>
+          <p className="mt-2">© {new Date().getFullYear()} Gia Pereira. All rights reserved.</p>
         </div>
       </footer>
     </div>

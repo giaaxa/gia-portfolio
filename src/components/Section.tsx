@@ -8,8 +8,8 @@ interface SectionProps {
 
 export const Section = ({ id, children, className = "" }: SectionProps) => {
   return (
-    <section id={id} className={`min-h-screen py-20 px-6 ${className}`}>
-      <div className="max-w-7xl mx-auto">{children}</div>
+    <section id={id} className={`min-h-screen py-22 px-6 ${className}`}>
+      <div className="max-w-[1200px] mx-auto">{children}</div>
     </section>
   );
 };
