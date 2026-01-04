@@ -11,9 +11,9 @@ export const Section = ({ id, children, className = "", fullHeight = false }: Se
   return (
     <section 
       id={id} 
-      className={`py-24 md:py-32 px-6 ${fullHeight ? 'min-h-screen flex items-center' : ''} ${className}`}
+      className={`py-[72px] md:py-[96px] px-6 ${fullHeight ? 'min-h-screen flex items-center' : ''} ${className}`}
     >
-      <div className="max-w-container mx-auto w-full">{children}</div>
+      <div className="max-w-[1180px] mx-auto w-full">{children}</div>
     </section>
   );
 };
@@ -26,8 +26,8 @@ interface SectionHeaderProps {
 
 export const SectionHeader = ({ title, subtitle, align = 'left' }: SectionHeaderProps) => {
   return (
-    <div className={`mb-16 ${align === 'center' ? 'text-center' : ''}`}>
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display text-foreground mb-4">
+    <div className={`mb-12 ${align === 'center' ? 'text-center' : ''}`}>
+      <h2 className="text-foreground mb-3">
         {title}
       </h2>
       {subtitle && (

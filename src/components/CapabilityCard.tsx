@@ -8,12 +8,12 @@ interface CapabilityCardProps {
 
 export const CapabilityCard = ({ icon: Icon, title, items }: CapabilityCardProps) => {
   return (
-    <div className="card-elevated-hover rounded-2xl p-6 space-y-4">
-      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-        <Icon className="w-6 h-6 text-primary" />
+    <div className="card-elevated p-6 space-y-4">
+      <div className="w-10 h-10 rounded-xl bg-[hsl(224,76%,33%,0.08)] flex items-center justify-center">
+        <Icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
       </div>
       
-      <h3 className="text-lg font-display font-semibold text-foreground">
+      <h3 className="text-lg font-semibold text-foreground">
         {title}
       </h3>
       
