@@ -1,11 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { ArrowUpRight, ArrowDown, Mail, Send, Briefcase, LineChart, Palette, Users, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Section, SectionHeader } from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ProjectCard } from "@/components/ProjectCard";
 import { CapabilityCard } from "@/components/CapabilityCard";
@@ -22,7 +21,6 @@ const Index = () => {
     message: "",
   });
 
-  // Intersection observer for scroll animations
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
@@ -33,13 +31,13 @@ const Index = () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("animate-fade-in-up");
-          entry.target.classList.remove("opacity-0", "translate-y-8");
+          entry.target.classList.remove("opacity-0", "translate-y-4");
         }
       });
     }, observerOptions);
 
     document.querySelectorAll(".reveal").forEach((el) => {
-      el.classList.add("opacity-0", "translate-y-8");
+      el.classList.add("opacity-0", "translate-y-4");
       observer.observe(el);
     });
 
@@ -51,7 +49,7 @@ const Index = () => {
     console.log("Form submitted:", formData);
   };
 
-  const trustItems = ["Ex-IBM", "First Class Economics", "ManaVerse Founder", "Data Analytics"];
+  const trustItems = ["Ex-IBM", "First Class Econ", "ManaVerse Founder", "Data Analytics"];
 
   return (
     <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -59,16 +57,13 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center pt-20 pb-16 px-6 relative">
-        {/* Gradient orb background */}
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] gradient-orb animate-orb pointer-events-none" />
-        
-        <div className="max-w-container mx-auto w-full">
+      <section id="home" className="min-h-screen flex items-center pt-24 pb-16 px-6">
+        <div className="max-w-[1180px] mx-auto w-full">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left content */}
-            <div className="space-y-8 relative z-10">
+            <div className="space-y-8">
               <div className="space-y-6">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.1] tracking-tight animate-hero">
+                <h1 className="animate-hero">
                   Building thoughtful systems at the edge of AI and design
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed animate-hero-delayed max-w-lg">
@@ -80,7 +75,7 @@ const Index = () => {
                 <Button 
                   asChild 
                   size="lg" 
-                  className="rounded-full px-8 bg-primary hover:bg-primary/90 text-primary-foreground font-medium btn-glow"
+                  className="rounded-full px-8 bg-primary hover:bg-[hsl(224,76%,27%)] text-primary-foreground font-medium"
                 >
                   <a href="#work">
                     View work
@@ -91,34 +86,35 @@ const Index = () => {
                   asChild 
                   variant="outline" 
                   size="lg" 
-                  className="rounded-full px-8 border-border hover:bg-muted hover:border-muted-foreground/30"
+                  className="rounded-full px-8 border-[hsl(220,30%,8%,0.15)] text-foreground hover:bg-[hsl(220,14%,96%)] hover:border-[hsl(220,30%,8%,0.2)]"
                 >
                   <a href="#contact">Contact</a>
                 </Button>
               </div>
 
-              {/* Trust row */}
+              {/* Trust row - pill chips */}
               <div className="flex flex-wrap gap-2 pt-4 animate-hero-delayed" style={{ animationDelay: '0.3s' }}>
                 {trustItems.map((item) => (
-                  <Badge key={item} variant="outline" className="text-xs">
+                  <span 
+                    key={item} 
+                    className="text-xs px-3 py-1.5 rounded-full bg-[hsl(224,76%,33%,0.08)] text-muted-foreground border border-[hsl(220,30%,8%,0.08)]"
+                  >
                     {item}
-                  </Badge>
+                  </span>
                 ))}
               </div>
             </div>
 
             {/* Right portrait */}
-            <div className="relative flex justify-center lg:justify-end animate-hero-delayed" style={{ animationDelay: '0.1s' }}>
+            <div className="relative flex justify-center lg:justify-end animate-hero-delayed" style={{ animationDelay: '0.15s' }}>
               <div className="relative max-w-[380px] w-full">
-                <div className="aspect-[4/5] rounded-3xl overflow-hidden glow-accent-subtle">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-[hsl(220,30%,8%,0.08)]">
                   <img
                     src={heroPortrait}
                     alt="Gia Pereira"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {/* Decorative element */}
-                <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl bg-primary/20 -z-10" />
               </div>
             </div>
           </div>
@@ -139,7 +135,7 @@ const Index = () => {
           subtitle="Select projects showcasing strategy, design, and technical thinking."
         />
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           <div className="reveal">
             <ProjectCard
               title="ManaVerse"
@@ -147,6 +143,9 @@ const Index = () => {
               tags={["Product", "Founder", "AI"]}
               image={cosmicOrb}
               link="#manaverse-detail"
+              category="Wellness Tech"
+              role="Founder"
+              year="2024"
             />
           </div>
           
@@ -155,16 +154,10 @@ const Index = () => {
               title="IBM SAP Consulting"
               outcome="Led finance testing coordination across global teams. Contributed to GenAI initiatives."
               tags={["Consulting", "Finance", "Enterprise"]}
-              link="#ibm-detail"
-            />
-          </div>
-          
-          <div className="reveal" style={{ transitionDelay: '0.2s' }}>
-            <ProjectCard
-              title="Aesthetica Studio"
-              outcome="End to end brand and content systems for AI-first creative campaigns."
-              tags={["Brand", "Strategy", "Content"]}
-              link="#aesthetica-detail"
+              link="#experience"
+              category="Enterprise"
+              role="Junior Consultant"
+              year="2023"
             />
           </div>
         </div>
@@ -214,12 +207,10 @@ const Index = () => {
 
       {/* Proof / Metrics Section */}
       <Section id="proof">
-        <div className="card-elevated rounded-3xl p-8 md:p-12">
-          <div className="grid md:grid-cols-3 gap-12 reveal">
-            <StatBlock value="3+" label="Years of professional experience" />
-            <StatBlock value="1,000+" label="Students reached through events" />
-            <StatBlock value="+40%" label="Engagement growth on campaigns" />
-          </div>
+        <div className="grid md:grid-cols-3 gap-12 reveal">
+          <StatBlock value="3+" label="Years of professional experience" />
+          <StatBlock value="1,000+" label="Students reached through events" />
+          <StatBlock value="+40%" label="Engagement growth on campaigns" />
         </div>
       </Section>
 
@@ -232,7 +223,7 @@ const Index = () => {
               subtitle="A bit more about who I am and how I work."
             />
             
-            <div className="space-y-6 text-muted-foreground leading-relaxed">
+            <div className="space-y-6 text-muted-foreground leading-relaxed max-w-lg">
               <p>
                 I'm Gia Pereira. I blend brand thinking, data, and design to build products people actually use. I lead teams with clarity and care.
               </p>
@@ -243,17 +234,17 @@ const Index = () => {
           </div>
 
           <div className="space-y-6 reveal" style={{ transitionDelay: '0.1s' }}>
-            <h3 className="text-lg font-display font-semibold text-foreground">Principles</h3>
+            <h3 className="text-lg font-semibold text-foreground">Principles</h3>
             <div className="space-y-4">
-              <div className="card-elevated rounded-2xl p-5">
+              <div className="card-elevated p-5">
                 <h4 className="font-medium text-foreground mb-1">Clarity over complexity</h4>
                 <p className="text-sm text-muted-foreground">Simple solutions that people understand and trust.</p>
               </div>
-              <div className="card-elevated rounded-2xl p-5">
+              <div className="card-elevated p-5">
                 <h4 className="font-medium text-foreground mb-1">Build with intention</h4>
                 <p className="text-sm text-muted-foreground">Every decision should serve the end user.</p>
               </div>
-              <div className="card-elevated rounded-2xl p-5">
+              <div className="card-elevated p-5">
                 <h4 className="font-medium text-foreground mb-1">Lead with empathy</h4>
                 <p className="text-sm text-muted-foreground">Good teams are built on trust and understanding.</p>
               </div>
@@ -306,9 +297,12 @@ const Index = () => {
             "SAP", "Figma", "Canva", "Notion", "Git", 
             "Jupyter", "Matplotlib", "Tableau"
           ].map((tool) => (
-            <Badge key={tool} variant="secondary" className="px-4 py-2 text-sm">
+            <span 
+              key={tool} 
+              className="px-4 py-2 text-sm rounded-full bg-white border border-[hsl(220,30%,8%,0.10)] text-muted-foreground hover:border-[hsl(220,30%,8%,0.18)] hover:bg-[hsl(220,14%,96%)] transition-all cursor-default"
+            >
               {tool}
-            </Badge>
+            </span>
           ))}
         </div>
       </Section>
@@ -317,8 +311,10 @@ const Index = () => {
       <Section id="manaverse-detail">
         <div className="space-y-12">
           <div className="reveal">
-            <Badge className="mb-4">Featured Project</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4">
+            <span className="text-xs px-3 py-1.5 rounded-full bg-[hsl(224,76%,33%,0.08)] text-primary border border-[hsl(224,76%,33%,0.12)] mb-4 inline-block">
+              Featured Project
+            </span>
+            <h2 className="text-foreground mb-4">
               ManaVerse
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl">
@@ -327,12 +323,12 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="card-elevated-hover rounded-2xl p-8 space-y-6 reveal">
-              <h3 className="text-xl font-display font-semibold text-primary">ManaBand</h3>
+            <div className="card-elevated p-8 space-y-6 reveal">
+              <h3 className="text-xl font-semibold text-primary">ManaBand</h3>
               <p className="text-muted-foreground leading-relaxed">
                 A privacy-first wristband that supports breath pacing and tracks HRV, EDA, motion, and sleep. It contributes to a simple Prana Score and gives gentle nudges.
               </p>
-              <div className="aspect-video rounded-xl overflow-hidden bg-muted">
+              <div className="aspect-video rounded-xl overflow-hidden bg-[hsl(220,14%,96%)] border border-[hsl(220,30%,8%,0.08)]">
                 <img
                   src={manabandImage}
                   alt="ManaBand wristband device"
@@ -341,19 +337,19 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="card-elevated-hover rounded-2xl p-8 space-y-6 reveal" style={{ transitionDelay: '0.1s' }}>
-              <h3 className="text-xl font-display font-semibold text-primary">Brain Stone</h3>
+            <div className="card-elevated p-8 space-y-6 reveal" style={{ transitionDelay: '0.1s' }}>
+              <h3 className="text-xl font-semibold text-primary">Brain Stone</h3>
               <p className="text-muted-foreground leading-relaxed">
                 A small off-phone companion for quick resets. Tap to begin a practice. Long press for an emergency reset. The light breathes to guide attention.
               </p>
-              <div className="aspect-[3/2] rounded-xl bg-muted flex items-center justify-center">
+              <div className="aspect-[3/2] rounded-xl bg-[hsl(220,14%,96%)] border border-[hsl(220,30%,8%,0.08)] flex items-center justify-center">
                 <p className="text-sm text-muted-foreground">Device preview coming soon</p>
               </div>
             </div>
           </div>
 
-          <div className="card-elevated rounded-2xl p-8 reveal">
-            <h3 className="text-xl font-display font-semibold text-foreground mb-6">Early Traction</h3>
+          <div className="card-elevated p-8 reveal">
+            <h3 className="text-xl font-semibold text-foreground mb-8">Early Traction</h3>
             <div className="grid md:grid-cols-3 gap-8">
               <StatBlock value="103" label="Survey responses with consent" />
               <StatBlock value="50+" label="People on the waitlist" />
@@ -367,7 +363,7 @@ const Index = () => {
       <Section id="contact">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16 reveal">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4">
+            <h2 className="text-foreground mb-4">
               Let's work together
             </h2>
             <p className="text-lg text-muted-foreground">
@@ -411,7 +407,7 @@ const Index = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
-                className="rounded-xl bg-muted border-border focus:border-primary h-12"
+                className="rounded-xl bg-white border-[hsl(220,30%,8%,0.10)] focus:border-primary h-12"
               />
               <Input
                 type="email"
@@ -419,22 +415,22 @@ const Index = () => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
-                className="rounded-xl bg-muted border-border focus:border-primary h-12"
+                className="rounded-xl bg-white border-[hsl(220,30%,8%,0.10)] focus:border-primary h-12"
               />
               <Textarea
                 placeholder="Your message"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 required
-                rows={5}
-                className="rounded-xl bg-muted border-border focus:border-primary resize-none"
+                rows={4}
+                className="rounded-xl bg-white border-[hsl(220,30%,8%,0.10)] focus:border-primary resize-none"
               />
               <Button 
                 type="submit" 
-                className="w-full rounded-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                className="w-full rounded-full bg-primary hover:bg-[hsl(224,76%,27%)] text-primary-foreground font-medium h-12"
               >
-                <Send className="w-4 h-4 mr-2" />
-                Send Message
+                Send message
+                <Send className="ml-2 w-4 h-4" />
               </Button>
             </form>
           </div>
@@ -442,12 +438,12 @@ const Index = () => {
       </Section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-border/50">
-        <div className="max-w-container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <footer className="py-8 px-6 border-t border-[hsl(220,30%,8%,0.08)]">
+        <div className="max-w-[1180px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Gia Pereira. Built with clarity and care.
+            © 2024 Gia Pereira. Built with clarity and care.
           </p>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             <a 
               href="https://linkedin.com" 
               target="_blank" 
@@ -457,12 +453,12 @@ const Index = () => {
               LinkedIn
             </a>
             <a 
-              href="https://manashakti.app" 
+              href="https://github.com" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors link-underline"
             >
-              ManaShakti
+              GitHub
             </a>
           </div>
         </div>

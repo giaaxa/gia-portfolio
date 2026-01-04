@@ -9,22 +9,29 @@ export default {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1200px",
+        "2xl": "1180px",
       },
     },
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        display: ['Inter', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
-        'container': '1120px',
+        'container': '1180px',
       },
       spacing: {
+        '12': '12px',
+        '16': '16px',
         '18': '4.5rem',
         '22': '5.5rem',
+        '24': '24px',
         '26': '6.5rem',
         '30': '7.5rem',
+        '32': '32px',
+        '48': '48px',
+        '72': '72px',
+        '96': '96px',
       },
       colors: {
         border: "hsl(var(--border))",

@@ -1,53 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Premium Framer-like Design System
-   - Clean, minimal, slightly futuristic
+/* Bright Editorial Design System
+   - Clean, minimal, Framer-like polish
    - 8pt spacing system
-   - Restrained palette with electric accent
-   - All colors HSL
+   - Dark blue accent only
+   - High readability, lots of whitespace
 */
 
 @layer base {
   :root {
-    /* Near-black background for premium feel */
-    --background: 220 16% 6%;
-    --foreground: 220 10% 88%;
+    /* Warm white background */
+    --background: 48 9% 98%;
+    --foreground: 220 30% 8%;
 
-    /* Slightly elevated surfaces */
-    --card: 220 16% 9%;
-    --card-foreground: 220 10% 88%;
+    /* Pure white cards */
+    --card: 0 0% 100%;
+    --card-foreground: 220 30% 8%;
 
-    --popover: 220 16% 9%;
-    --popover-foreground: 220 10% 88%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 8%;
 
-    /* Electric accent - vibrant purple/violet */
-    --primary: 262 83% 68%;
-    --primary-foreground: 220 16% 6%;
+    /* Dark blue accent */
+    --primary: 224 76% 33%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary - softer accent */
-    --secondary: 220 16% 14%;
-    --secondary-foreground: 220 10% 88%;
+    /* Secondary elements */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 30% 8%;
 
     /* Muted elements */
-    --muted: 220 16% 12%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 218 14% 45%;
 
-    --accent: 262 83% 68%;
-    --accent-foreground: 220 16% 6%;
+    /* Accent - same as primary */
+    --accent: 224 76% 33%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
-    --destructive-foreground: 220 10% 98%;
+    --destructive-foreground: 0 0% 100%;
 
     /* Subtle borders */
-    --border: 220 16% 14%;
-    --input: 220 16% 14%;
-    --ring: 262 83% 68%;
+    --border: 220 30% 8% / 0.10;
+    --border-hover: 220 30% 8% / 0.18;
+    --input: 220 30% 8% / 0.10;
+    --ring: 224 76% 33%;
 
-    /* Larger radius for premium feel */
+    /* Premium radius */
     --radius: 1.25rem;
   }
 }
@@ -65,42 +67,39 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.7;
     letter-spacing: -0.01em;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    letter-spacing: -0.025em;
-    line-height: 1.2;
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: hsl(220 30% 8%);
+  }
+
+  h1 {
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: clamp(2.125rem, 4vw, 2.75rem);
+    font-weight: 600;
   }
 
   ::selection {
-    background: hsl(262 83% 68% / 0.3);
+    background: hsl(224 76% 33% / 0.15);
   }
 }
 
 @layer utilities {
-  /* Premium gradient text */
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary via-[hsl(262,83%,75%)] to-primary bg-clip-text text-transparent;
-  }
-
-  /* Soft glow effects */
-  .glow-accent {
-    box-shadow: 0 0 60px -15px hsl(262 83% 68% / 0.4);
-  }
-
-  .glow-accent-subtle {
-    box-shadow: 0 0 40px -10px hsl(262 83% 68% / 0.2);
-  }
-
-  /* Premium card styles */
+  /* Card styles - white with thin border */
   .card-elevated {
-    background: hsl(220 16% 9% / 0.8);
-    border: 1px solid hsl(220 16% 16% / 0.6);
-    backdrop-filter: blur(20px);
+    background: hsl(0 0% 100%);
+    border: 1px solid hsl(220 30% 8% / 0.10);
+    border-radius: 1.25rem;
   }
 
   .card-elevated-hover {
@@ -108,9 +107,9 @@
   }
 
   .card-elevated-hover:hover {
-    border-color: hsl(262 83% 68% / 0.3);
-    box-shadow: 0 8px 32px -8px hsl(262 83% 68% / 0.15);
-    transform: translateY(-2px);
+    border-color: hsl(220 30% 8% / 0.18);
+    box-shadow: 0 4px 24px -4px hsl(220 30% 8% / 0.08);
+    transform: translateY(-4px);
   }
 
   /* Animated underline for links */
@@ -120,19 +119,20 @@
 
   .link-underline::after {
     content: '';
-    @apply absolute bottom-0 left-0 h-px w-0 bg-primary transition-all duration-300;
+    @apply absolute bottom-0 left-0 h-px w-0 transition-all duration-300;
+    background: hsl(224 76% 33%);
   }
 
   .link-underline:hover::after {
     @apply w-full;
   }
 
-  /* Hero animations */
+  /* Hero animations - subtle fade up with blur */
   @keyframes heroFadeIn {
     0% {
       opacity: 0;
-      transform: translateY(24px);
-      filter: blur(8px);
+      transform: translateY(12px);
+      filter: blur(4px);
     }
     100% {
       opacity: 1;
@@ -142,10 +142,10 @@
   }
 
   @keyframes heroFadeInDelayed {
-    0%, 20% {
+    0%, 15% {
       opacity: 0;
-      transform: translateY(24px);
-      filter: blur(8px);
+      transform: translateY(12px);
+      filter: blur(4px);
     }
     100% {
       opacity: 1;
@@ -155,18 +155,18 @@
   }
 
   .animate-hero {
-    animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: heroFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .animate-hero-delayed {
-    animation: heroFadeInDelayed 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: heroFadeInDelayed 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   /* Scroll reveal animations */
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(32px);
+      transform: translateY(16px);
     }
     to {
       opacity: 1;
@@ -180,11 +180,11 @@
   }
 
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
+    animation: fadeIn 0.4s ease-out forwards;
   }
 
   /* Stagger delays */
@@ -192,77 +192,40 @@
   .delay-200 { animation-delay: 0.2s; }
   .delay-300 { animation-delay: 0.3s; }
   .delay-400 { animation-delay: 0.4s; }
-  .delay-500 { animation-delay: 0.5s; }
-
-  /* Floating orb gradient */
-  @keyframes orbFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(10px, -10px) scale(1.02); }
-    66% { transform: translate(-5px, 5px) scale(0.98); }
-  }
-
-  .animate-orb {
-    animation: orbFloat 8s ease-in-out infinite;
-  }
-
-  /* Gradient orb background */
-  .gradient-orb {
-    background: radial-gradient(
-      ellipse at center,
-      hsl(262 83% 68% / 0.15) 0%,
-      hsl(262 83% 68% / 0.05) 40%,
-      transparent 70%
-    );
-  }
-
-  /* 8pt spacing utilities */
-  .space-8 { gap: 8px; }
-  .space-16 { gap: 16px; }
-  .space-24 { gap: 24px; }
-  .space-32 { gap: 32px; }
-  .space-48 { gap: 48px; }
-  .space-64 { gap: 64px; }
-
-  /* Premium button hover */
-  .btn-glow {
-    @apply relative overflow-hidden;
-  }
-
-  .btn-glow::before {
-    content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
-    background: radial-gradient(circle at center, hsl(262 83% 68% / 0.3) 0%, transparent 70%);
-  }
-
-  .btn-glow:hover::before {
-    @apply opacity-100;
-  }
 
   /* Scroll indicator */
   @keyframes scrollBounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
+    50% { transform: translateY(6px); }
   }
 
   .animate-scroll {
     animation: scrollBounce 2s ease-in-out infinite;
   }
+
+  /* 8pt spacing scale utilities */
+  .gap-12 { gap: 12px; }
+  .gap-16 { gap: 16px; }
+  .gap-24 { gap: 24px; }
+  .gap-32 { gap: 32px; }
+  .gap-48 { gap: 48px; }
+  .gap-72 { gap: 72px; }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - light theme */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(220 16% 6%);
+  background: hsl(48 9% 98%);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(220 16% 20%);
+  background: hsl(220 30% 8% / 0.15);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(220 16% 30%);
+  background: hsl(220 30% 8% / 0.25);
 }

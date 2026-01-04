@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 
 const navItems = [
@@ -36,18 +36,18 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-background/70 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-background/20" 
+          ? "bg-white/80 backdrop-blur-xl border-b border-[hsl(220,30%,8%,0.08)] shadow-[0_1px_3px_hsl(220,30%,8%,0.04)]" 
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-container mx-auto px-6 py-4">
+      <div className="max-w-[1180px] mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a 
             href="#home" 
-            className="text-xl font-display font-bold text-foreground hover:text-primary transition-colors"
+            className="text-lg font-semibold text-foreground hover:text-primary transition-colors"
           >
             Gia Pereira
           </a>
@@ -70,11 +70,10 @@ export const Navbar = () => {
             <Button 
               asChild 
               size="sm" 
-              className="rounded-full px-5 bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+              className="rounded-full px-5 bg-primary hover:bg-[hsl(224,76%,27%)] text-primary-foreground font-medium"
             >
               <a href="#contact">
                 Let's talk
-                <ArrowUpRight className="ml-1 w-4 h-4" />
               </a>
             </Button>
           </div>
@@ -83,7 +82,7 @@ export const Navbar = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="md:hidden text-foreground"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -92,7 +91,7 @@ export const Navbar = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-1 animate-fade-in">
+          <div className="md:hidden mt-4 pb-4 space-y-1 animate-fade-in bg-white rounded-2xl p-4 border border-[hsl(220,30%,8%,0.08)]">
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -100,17 +99,17 @@ export const Navbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
                   activeSection === item.href.substring(1)
-                    ? "text-primary bg-primary/10"
+                    ? "text-primary bg-[hsl(224,76%,33%,0.08)]"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
                 {item.label}
               </a>
             ))}
-            <div className="pt-2">
+            <div className="pt-2 px-4">
               <Button 
                 asChild 
-                className="w-full rounded-full bg-primary hover:bg-primary/90"
+                className="w-full rounded-full bg-primary hover:bg-[hsl(224,76%,27%)]"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <a href="#contact">Let's talk</a>
