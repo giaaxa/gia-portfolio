@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Button } from "./ui/button";
 
 const navItems = [
-  { label: "Home", href: "#home" },
+  { label: "Work", href: "#work" },
   { label: "About", href: "#about" },
-  { label: "Highlights", href: "#highlights" },
-  { label: "Featured", href: "#featured" },
-  { label: "ManaVerse", href: "#manaverse" },
-  { label: "Experience", href: "#experience" },
-  { label: "Education", href: "#education" },
-  { label: "Skills", href: "#skills" },
-  { label: "Certifications", href: "#certifications" },
-  { label: "Dissertation", href: "#dissertation" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -25,13 +17,12 @@ export const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // Scroll spy
-      const sections = navItems.map(item => item.href.substring(1));
+      const sections = ["home", "work", "capabilities", "proof", "about", "tools", "contact"];
       for (const sectionId of sections) {
         const element = document.getElementById(sectionId);
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
+          if (rect.top <= 150 && rect.bottom >= 150) {
             setActiveSection(sectionId);
             break;
           }
@@ -45,62 +36,86 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border/50" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled 
+          ? "bg-background/70 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-background/20" 
+          : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="max-w-container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="text-2xl font-bold text-primary">
-            GIA
+          <a 
+            href="#home" 
+            className="text-xl font-display font-bold text-foreground hover:text-primary transition-colors"
+          >
+            Gia Pereira
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`text-sm font-medium transition-colors link-underline ${
                   activeSection === item.href.substring(1)
-                    ? "text-primary"
+                    ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {item.label}
               </a>
             ))}
+            <Button 
+              asChild 
+              size="sm" 
+              className="rounded-full px-5 bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+            >
+              <a href="#contact">
+                Let's talk
+                <ArrowUpRight className="ml-1 w-4 h-4" />
+              </a>
+            </Button>
           </div>
 
           {/* Mobile Menu Toggle */}
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X /> : <Menu />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </Button>
         </div>
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 space-y-2">
+          <div className="md:hidden mt-4 pb-4 space-y-1 animate-fade-in">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
                   activeSection === item.href.substring(1)
-                    ? "text-primary bg-muted"
+                    ? "text-primary bg-primary/10"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
                 {item.label}
               </a>
             ))}
+            <div className="pt-2">
+              <Button 
+                asChild 
+                className="w-full rounded-full bg-primary hover:bg-primary/90"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <a href="#contact">Let's talk</a>
+              </Button>
+            </div>
           </div>
         )}
       </div>
