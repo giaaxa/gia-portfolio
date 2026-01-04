@@ -4,25 +4,37 @@ interface SectionProps {
   id: string;
   children: ReactNode;
   className?: string;
+  fullHeight?: boolean;
 }
 
-export const Section = ({ id, children, className = "" }: SectionProps) => {
+export const Section = ({ id, children, className = "", fullHeight = false }: SectionProps) => {
   return (
-    <section id={id} className={`min-h-screen py-22 px-6 ${className}`}>
-      <div className="max-w-[1200px] mx-auto">{children}</div>
+    <section 
+      id={id} 
+      className={`py-24 md:py-32 px-6 ${fullHeight ? 'min-h-screen flex items-center' : ''} ${className}`}
+    >
+      <div className="max-w-container mx-auto w-full">{children}</div>
     </section>
   );
 };
 
-export const SectionHeader = ({ overline, title }: { overline?: string; title: string }) => {
+interface SectionHeaderProps {
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+}
+
+export const SectionHeader = ({ title, subtitle, align = 'left' }: SectionHeaderProps) => {
   return (
-    <div className="mb-12">
-      {overline && (
-        <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-2">
-          {overline}
+    <div className={`mb-16 ${align === 'center' ? 'text-center' : ''}`}>
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display text-foreground mb-4">
+        {title}
+      </h2>
+      {subtitle && (
+        <p className="text-lg text-muted-foreground max-w-2xl">
+          {subtitle}
         </p>
       )}
-      <h2 className="text-4xl md:text-5xl font-bold text-gradient">{title}</h2>
     </div>
   );
 };
