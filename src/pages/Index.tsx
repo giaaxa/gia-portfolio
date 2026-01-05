@@ -8,7 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SplineScene } from "@/components/SplineScene";
-import cosmicOrb from "@/assets/cosmic-orb.jpg";
+import manaverseLogo from "@/assets/manaverse-logo.png";
+import ibmTeam from "@/assets/ibm-team.png";
+import aestheticaLogo from "@/assets/aesthetica-logo.png";
 
 const Index = () => {
   const [formData, setFormData] = useState({
@@ -54,16 +56,16 @@ const Index = () => {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-6 overflow-hidden">
-        {/* Spline background - left side, floating off-canvas */}
-        <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[600px] md:h-[600px] pointer-events-none opacity-60 md:opacity-80 -z-10 hidden sm:block">
+        {/* Spline scene - positioned top-left, partially off-canvas */}
+        <div className="absolute -left-32 -top-20 md:-left-20 md:top-10 w-[400px] h-[400px] md:w-[550px] md:h-[550px] pointer-events-none opacity-50 md:opacity-70 hidden sm:block">
           <SplineScene className="w-full h-full" />
         </div>
 
         <div className="max-w-[1180px] mx-auto w-full relative z-10">
-          <div className="max-w-2xl ml-auto md:ml-[30%]">
+          <div className="max-w-2xl ml-auto md:ml-[35%]">
             <div className="space-y-6">
               <h1 className="animate-hero text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight">
-                Gia Pereira
+                Hi, I'm Gia
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed animate-hero-delayed max-w-lg">
                 Building products, systems, and content. Ex-IBM consultant. Founder of ManaVerse. Studying Data Analytics and AI.
@@ -121,7 +123,7 @@ const Index = () => {
               title="ManaVerse"
               outcome="A wellness tech startup building hardware and software for mental clarity. Privacy-first wearables that help you reset."
               tags={["Founder", "Product", "Hardware"]}
-              image={cosmicOrb}
+              image={manaverseLogo}
               link="#manaverse"
               category="Wellness Tech"
               role="Founder"
@@ -134,6 +136,7 @@ const Index = () => {
               title="IBM SAP Consulting"
               outcome="Coordinated finance testing across global enterprise teams. Contributed to GenAI initiatives for internal tooling."
               tags={["Consulting", "Finance", "AI"]}
+              image={ibmTeam}
               link="#about"
               category="Enterprise"
               role="Junior Consultant"
@@ -146,6 +149,7 @@ const Index = () => {
               title="Aesthetica Studio"
               outcome="Creative direction and brand strategy for a boutique design studio. Built identity systems and web presence."
               tags={["Brand", "Strategy", "Design"]}
+              image={aestheticaLogo}
               link="#about"
               category="Creative"
               role="Creative Director"

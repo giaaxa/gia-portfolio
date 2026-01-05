@@ -75,7 +75,7 @@ export const SplineScene = ({ className = "" }: SplineSceneProps) => {
       <SplineErrorBoundary fallback={<FallbackOrb />}>
         <Suspense fallback={<FallbackOrb />}>
           <SplineComponent
-            scene="https://prod.spline.design/c28b8d3d-e685-41ad-826f-ba580b8c9f8c/scene.splinecode"
+            scene="https://prod.spline.design/sW07qLKJKxyJ2FRt/scene.splinecode"
             onLoad={() => setIsLoaded(true)}
             style={{
               width: "100%",
