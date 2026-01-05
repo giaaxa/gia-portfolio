@@ -12,14 +12,17 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({ title, outcome, tags, image, link, category, role, year }: ProjectCardProps) => {
+  // Determine if this is a text-only card (no image provided)
+  const isTextOnly = !image;
+
   return (
     <a 
       href={link || "#"} 
       className="group block"
     >
       <div className="card-elevated-hover overflow-hidden">
-        {/* Image */}
-        <div className="aspect-[16/10] bg-[hsl(220,14%,96%)] overflow-hidden">
+        {/* Image or text-only header */}
+        <div className="aspect-[16/10] overflow-hidden">
           {image ? (
             <img 
               src={image} 
@@ -27,30 +30,51 @@ export const ProjectCard = ({ title, outcome, tags, image, link, category, role,
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
-              Project preview
+            <div 
+              className="w-full h-full flex items-center justify-center p-6"
+              style={{
+                background: "linear-gradient(135deg, hsl(224 76% 33% / 0.06), hsl(224 76% 45% / 0.03))",
+              }}
+            >
+              <span className="text-2xl font-semibold text-foreground/80 text-center">{title}</span>
             </div>
           )}
         </div>
         
         {/* Content */}
-        <div className="p-6 space-y-3">
-          <div className="flex items-start justify-between gap-4">
-            <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-              {title}
-            </h3>
-            <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
-          </div>
+        <div className="p-5 space-y-3">
+          {!isTextOnly && (
+            <div className="flex items-start justify-between gap-4">
+              <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                {title}
+              </h3>
+              <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0 mt-0.5" />
+            </div>
+          )}
           
           <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
             {outcome}
           </p>
+
+          {/* Tags */}
+          {tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {tags.map((tag) => (
+                <span 
+                  key={tag} 
+                  className="text-xs px-2 py-1 rounded-full bg-primary/5 text-muted-foreground border border-foreground/6"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       
       {/* Caption row outside card */}
       {(category || role || year) && (
-        <p className="mt-3 text-xs text-muted-foreground">
+        <p className="mt-2.5 text-xs text-muted-foreground">
           {[category, role, year].filter(Boolean).join(" · ")}
         </p>
       )}

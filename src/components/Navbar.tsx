@@ -3,9 +3,9 @@ import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 
 const navItems = [
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Work", href: "#work", id: "work" },
+  { label: "About", href: "#about", id: "about" },
+  { label: "Contact", href: "#contact", id: "contact" },
 ];
 
 export const Navbar = () => {
@@ -17,12 +17,12 @@ export const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = ["home", "work", "capabilities", "proof", "about", "tools", "contact"];
-      for (const sectionId of sections) {
+      const sections = ["home", "work", "content", "about", "contact"];
+      for (const sectionId of sections.reverse()) {
         const element = document.getElementById(sectionId);
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
+          if (rect.top <= 100) {
             setActiveSection(sectionId);
             break;
           }
@@ -38,7 +38,7 @@ export const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-white/80 backdrop-blur-xl border-b border-[hsl(220,30%,8%,0.08)] shadow-[0_1px_3px_hsl(220,30%,8%,0.04)]" 
+          ? "bg-white/90 backdrop-blur-xl border-b border-foreground/8 shadow-sm" 
           : "bg-transparent"
       }`}
     >
@@ -58,19 +58,25 @@ export const Navbar = () => {
               <a
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium transition-colors link-underline ${
-                  activeSection === item.href.substring(1)
+                className={`text-sm font-medium transition-colors relative py-1 ${
+                  activeSection === item.id
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {item.label}
+                {/* Animated underline */}
+                <span 
+                  className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                    activeSection === item.id ? "w-full" : "w-0"
+                  }`}
+                />
               </a>
             ))}
             <Button 
               asChild 
               size="sm" 
-              className="rounded-full px-5 bg-primary hover:bg-[hsl(224,76%,27%)] text-primary-foreground font-medium"
+              className="rounded-full px-5 bg-primary hover:bg-primary/90 text-primary-foreground font-medium h-9"
             >
               <a href="#contact">
                 Let's talk
@@ -91,15 +97,15 @@ export const Navbar = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-1 animate-fade-in bg-white rounded-2xl p-4 border border-[hsl(220,30%,8%,0.08)]">
+          <div className="md:hidden mt-4 pb-4 space-y-1 animate-fade-in bg-white rounded-2xl p-4 border border-foreground/8">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                  activeSection === item.href.substring(1)
-                    ? "text-primary bg-[hsl(224,76%,33%,0.08)]"
+                  activeSection === item.id
+                    ? "text-primary bg-primary/5"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
@@ -109,7 +115,7 @@ export const Navbar = () => {
             <div className="pt-2 px-4">
               <Button 
                 asChild 
-                className="w-full rounded-full bg-primary hover:bg-[hsl(224,76%,27%)]"
+                className="w-full rounded-full bg-primary hover:bg-primary/90"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <a href="#contact">Let's talk</a>
