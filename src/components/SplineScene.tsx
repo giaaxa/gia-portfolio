@@ -1,28 +1,4 @@
-import { useState, useRef, useEffect, lazy, Suspense, Component, ReactNode } from "react";
-
-// Error Boundary for Spline
-class SplineErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { hasError: boolean }> {
-  constructor(props: { children: ReactNode; fallback: ReactNode }) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return this.props.fallback;
-    }
-    return this.props.children;
-  }
-}
-
-// Lazy load Spline
-const SplineComponent = lazy(() => 
-  import("@splinetool/react-spline").then(module => ({ default: module.default }))
-);
+import { useState, useRef, useEffect } from "react";
 
 interface SplineSceneProps {
   className?: string;
@@ -72,20 +48,19 @@ export const SplineScene = ({ className = "" }: SplineSceneProps) => {
       }}
     >
       {!isLoaded && <FallbackOrb />}
-      <SplineErrorBoundary fallback={<FallbackOrb />}>
-        <Suspense fallback={<FallbackOrb />}>
-          <SplineComponent
-            scene="https://prod.spline.design/sW07qLKJKxyJ2FRt/scene.splinecode"
-            onLoad={() => setIsLoaded(true)}
-            style={{
-              width: "100%",
-              height: "100%",
-              opacity: isLoaded ? 1 : 0,
-              transition: "opacity 0.5s ease-out",
-            }}
-          />
-        </Suspense>
-      </SplineErrorBoundary>
+      <iframe 
+        src="https://my.spline.design/hellodistortingintro-ViTARCLvxKntXI5fsqf6Dlx4/"
+        frameBorder="0"
+        width="100%"
+        height="100%"
+        onLoad={() => setIsLoaded(true)}
+        style={{
+          opacity: isLoaded ? 1 : 0,
+          transition: "opacity 0.5s ease-out",
+          pointerEvents: "none",
+        }}
+        title="Spline 3D Scene"
+      />
     </div>
   );
 };
