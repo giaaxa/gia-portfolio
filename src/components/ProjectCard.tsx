@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 interface ProjectCardProps {
   title: string;
@@ -9,15 +9,20 @@ interface ProjectCardProps {
   category?: string;
   role?: string;
   year?: string;
+  external?: boolean;
 }
 
-export const ProjectCard = ({ title, outcome, tags, image, link, category, role, year }: ProjectCardProps) => {
+export const ProjectCard = ({ title, outcome, tags, image, link, category, role, year, external }: ProjectCardProps) => {
   // Determine if this is a text-only card (no image provided)
   const isTextOnly = !image;
 
+  const linkProps = external 
+    ? { href: link || "#", target: "_blank", rel: "noopener noreferrer" }
+    : { href: link || "#" };
+
   return (
     <a 
-      href={link || "#"} 
+      {...linkProps}
       className="group block"
     >
       <div className="card-elevated-hover overflow-hidden">
@@ -48,7 +53,11 @@ export const ProjectCard = ({ title, outcome, tags, image, link, category, role,
               <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                 {title}
               </h3>
-              <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0 mt-0.5" />
+              {external ? (
+                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-all flex-shrink-0 mt-0.5" />
+              ) : (
+                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0 mt-0.5" />
+              )}
             </div>
           )}
           

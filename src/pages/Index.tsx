@@ -11,6 +11,7 @@ import { SplineScene } from "@/components/SplineScene";
 import manaverseLogo from "@/assets/manaverse-logo.png";
 import ibmTeam from "@/assets/ibm-team.png";
 import aestheticaLogo from "@/assets/aesthetica-logo.png";
+import heroPortrait from "@/assets/hero-portrait.jpg";
 
 const Index = () => {
   const [formData, setFormData] = useState({
@@ -57,54 +58,67 @@ const Index = () => {
       {/* Hero Section */}
       <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-6 overflow-hidden">
         {/* Spline scene - positioned top-left, partially off-canvas */}
-        <div className="absolute -left-32 -top-20 md:-left-20 md:top-10 w-[400px] h-[400px] md:w-[550px] md:h-[550px] pointer-events-none opacity-50 md:opacity-70 hidden sm:block">
+        <div className="absolute -left-32 -top-32 md:-left-10 md:-top-10 w-[450px] h-[450px] md:w-[600px] md:h-[600px] pointer-events-none opacity-60 md:opacity-80 hidden sm:block">
           <SplineScene className="w-full h-full" />
         </div>
 
         <div className="max-w-[1180px] mx-auto w-full relative z-10">
-          <div className="max-w-2xl ml-auto md:ml-[35%]">
-            <div className="space-y-6">
-              <h1 className="animate-hero text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight">
-                Hi, I'm Gia
-              </h1>
-              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed animate-hero-delayed max-w-lg">
-                Building products, systems, and content. Ex-IBM consultant. Founder of ManaVerse. Studying Data Analytics and AI.
-              </p>
+          <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
+            {/* Portrait */}
+            <div className="flex-shrink-0 animate-hero">
+              <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border border-foreground/10 shadow-sm">
+                <img 
+                  src={heroPortrait} 
+                  alt="Gia Pereira" 
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-3 mt-8 animate-hero-delayed" style={{ animationDelay: '0.2s' }}>
-              <Button 
-                asChild 
-                className="rounded-full px-6 h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
-              >
-                <a href="#work">View work</a>
-              </Button>
-              <Button 
-                asChild 
-                variant="outline" 
-                className="rounded-full px-6 h-11 border-foreground/15 text-foreground hover:bg-muted"
-              >
-                <a 
-                  href="https://instagram.com/usecodegia" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Instagram className="w-4 h-4 mr-2" />
-                  Follow @usecodegia
-                </a>
-              </Button>
-            </div>
+            <div className="flex-1">
+              <div className="space-y-4">
+                <h1 className="animate-hero text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight">
+                  Hi, I'm Gia
+                </h1>
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed animate-hero-delayed max-w-lg">
+                  Building products, systems, and content. Ex-IBM consultant. Founder of ManaVerse. Studying Data Analytics and AI.
+                </p>
+              </div>
 
-            {/* Chips */}
-            <div className="flex flex-wrap gap-2 mt-6 animate-hero-delayed" style={{ animationDelay: '0.3s' }}>
-              {chips.map((chip) => (
-                <span 
-                  key={chip} 
-                  className="text-xs px-3 py-1.5 rounded-full bg-primary/5 text-muted-foreground border border-foreground/8"
+              <div className="flex flex-wrap gap-3 mt-6 animate-hero-delayed" style={{ animationDelay: '0.2s' }}>
+                <Button 
+                  asChild 
+                  className="rounded-full px-6 h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
                 >
-                  {chip}
-                </span>
-              ))}
+                  <a href="#work">View work</a>
+                </Button>
+                <Button 
+                  asChild 
+                  variant="outline" 
+                  className="rounded-full px-6 h-11 border-foreground/15 text-foreground hover:bg-muted"
+                >
+                  <a 
+                    href="https://instagram.com/usecodegia" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Instagram className="w-4 h-4 mr-2" />
+                    Follow @usecodegia
+                  </a>
+                </Button>
+              </div>
+
+              {/* Chips */}
+              <div className="flex flex-wrap gap-2 mt-5 animate-hero-delayed" style={{ animationDelay: '0.3s' }}>
+                {chips.map((chip) => (
+                  <span 
+                    key={chip} 
+                    className="text-xs px-3 py-1.5 rounded-full bg-primary/5 text-muted-foreground border border-foreground/8"
+                  >
+                    {chip}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -124,10 +138,11 @@ const Index = () => {
               outcome="A wellness tech startup building hardware and software for mental clarity. Privacy-first wearables that help you reset."
               tags={["Founder", "Product", "Hardware"]}
               image={manaverseLogo}
-              link="#manaverse"
+              link="https://manashakti.app/"
               category="Wellness Tech"
               role="Founder"
               year="2024"
+              external
             />
           </div>
           
