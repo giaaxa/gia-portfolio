@@ -52,6 +52,44 @@
     /* Premium radius */
     --radius: 1.25rem;
   }
+
+  .dark {
+    /* Deep dark background */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+
+    /* Dark cards */
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 96%;
+
+    /* Lighter blue accent for dark mode */
+    --primary: 224 76% 55%;
+    --primary-foreground: 222 47% 6%;
+
+    /* Secondary elements */
+    --secondary: 222 47% 14%;
+    --secondary-foreground: 210 40% 96%;
+
+    /* Muted elements */
+    --muted: 222 47% 14%;
+    --muted-foreground: 215 20% 55%;
+
+    /* Accent */
+    --accent: 224 76% 55%;
+    --accent-foreground: 222 47% 6%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Subtle borders for dark */
+    --border: 210 40% 96% / 0.10;
+    --border-hover: 210 40% 96% / 0.18;
+    --input: 210 40% 96% / 0.10;
+    --ring: 224 76% 55%;
+  }
 }
 
 @layer base {
@@ -62,6 +100,18 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
+    cursor: none;
+  }
+
+  /* Smooth theme transitions */
+  .theme-transitioning,
+  .theme-transitioning *,
+  .theme-transitioning *::before,
+  .theme-transitioning *::after {
+    transition: background-color 0.3s ease, 
+                border-color 0.3s ease, 
+                color 0.3s ease,
+                box-shadow 0.3s ease !important;
   }
 
   body {
@@ -76,7 +126,7 @@
     font-family: 'Inter', system-ui, sans-serif;
     letter-spacing: -0.03em;
     line-height: 1.05;
-    color: hsl(220 30% 8%);
+    @apply text-foreground;
   }
 
   h1 {
@@ -90,15 +140,20 @@
   }
 
   ::selection {
-    background: hsl(224 76% 33% / 0.15);
+    background: hsl(var(--primary) / 0.15);
+  }
+
+  /* Hide default cursor on interactive elements */
+  a, button, [role="button"], .cursor-pointer {
+    cursor: none;
   }
 }
 
 @layer utilities {
-  /* Card styles - white with thin border */
+  /* Card styles */
   .card-elevated {
-    background: hsl(0 0% 100%);
-    border: 1px solid hsl(220 30% 8% / 0.10);
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--foreground) / 0.10);
     border-radius: 1.25rem;
   }
 
@@ -107,8 +162,8 @@
   }
 
   .card-elevated-hover:hover {
-    border-color: hsl(220 30% 8% / 0.18);
-    box-shadow: 0 4px 24px -4px hsl(220 30% 8% / 0.08);
+    border-color: hsl(var(--foreground) / 0.18);
+    box-shadow: 0 4px 24px -4px hsl(var(--foreground) / 0.08);
     transform: translateY(-4px);
   }
 
@@ -120,7 +175,7 @@
   .link-underline::after {
     content: '';
     @apply absolute bottom-0 left-0 h-px w-0 transition-all duration-300;
-    background: hsl(224 76% 33%);
+    background: hsl(var(--primary));
   }
 
   .link-underline:hover::after {
@@ -238,7 +293,7 @@
 
   .portrait-glow {
     @apply absolute inset-0 rounded-2xl transition-opacity duration-300;
-    background: radial-gradient(circle, hsl(224 76% 45% / 0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, hsl(var(--primary) / 0.3) 0%, transparent 70%);
     opacity: 0;
     filter: blur(12px);
     z-index: -1;
@@ -253,20 +308,93 @@
   .gap-72 { gap: 72px; }
 }
 
-/* Custom scrollbar - light theme */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(48 9% 98%);
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(220 30% 8% / 0.15);
+  background: hsl(var(--foreground) / 0.15);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(220 30% 8% / 0.25);
+  background: hsl(var(--foreground) / 0.25);
+}
+
+/* Custom Cursor Styles */
+.custom-cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: hsl(var(--primary));
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+}
+
+.custom-cursor-dot.hovering {
+  width: 12px;
+  height: 12px;
+  background: hsl(var(--primary));
+}
+
+.custom-cursor-dot.clicking {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid hsl(var(--primary) / 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.custom-cursor-ring.hovering {
+  width: 48px;
+  height: 48px;
+  border-color: hsl(var(--primary) / 0.8);
+}
+
+.custom-cursor-ring.clicking {
+  width: 24px;
+  height: 24px;
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    display: none !important;
+  }
+  
+  html, a, button, [role="button"], .cursor-pointer {
+    cursor: auto !important;
+  }
+}
+
+/* Parallax background animation */
+@keyframes parallaxFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.02);
+  }
+}
+
+.parallax-bg {
+  animation: parallaxFloat 20s ease-in-out infinite;
 }
