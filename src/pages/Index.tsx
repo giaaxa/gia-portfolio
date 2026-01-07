@@ -55,17 +55,37 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-6">
-        <div className="max-w-[1180px] mx-auto w-full">
+      <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-6 overflow-hidden">
+        {/* Subtle background gradient */}
+        <div 
+          className="absolute top-0 right-0 w-[60%] h-[80%] pointer-events-none opacity-[0.04]"
+          style={{
+            background: 'radial-gradient(ellipse at top right, hsl(224 76% 45%), transparent 70%)',
+          }}
+        />
+
+        <div className="max-w-[1180px] mx-auto w-full relative z-10">
           <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
-            {/* Portrait */}
-            <div className="flex-shrink-0 animate-hero">
-              <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border border-foreground/10 shadow-sm">
-                <img 
-                  src={heroPortrait} 
-                  alt="Gia Pereira" 
-                  className="w-full h-full object-cover object-top"
-                />
+            {/* Portrait with animated orb */}
+            <div className="flex-shrink-0 animate-hero relative">
+              {/* Gradient orb behind portrait */}
+              <div 
+                className="absolute -inset-8 md:-inset-12 animate-float-orb pointer-events-none hidden sm:block"
+                style={{
+                  background: 'radial-gradient(circle, hsl(224 76% 45% / 0.25) 0%, hsl(224 76% 33% / 0.1) 40%, transparent 70%)',
+                  filter: 'blur(30px)',
+                }}
+              />
+              
+              <div className="portrait-container">
+                <div className="portrait-glow" />
+                <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border border-foreground/10 shadow-sm relative z-10 bg-background">
+                  <img 
+                    src={heroPortrait} 
+                    alt="Gia Pereira" 
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
               </div>
             </div>
 
@@ -287,7 +307,7 @@ const Index = () => {
           <div className="space-y-4">
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">Tools</h3>
             <div className="flex flex-wrap gap-2">
-              {["Python", "SQL", "Power BI", "Figma", "Notion"].map((tool) => (
+              {["Python", "SQL", "Power BI", "Figma", "Notion", "Canva", "CapCut", "DaVinci Resolve"].map((tool) => (
                 <span 
                   key={tool} 
                   className="px-3 py-1.5 text-sm rounded-full bg-white border border-foreground/10 text-muted-foreground hover:border-foreground/18 transition-colors"
