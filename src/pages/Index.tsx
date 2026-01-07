@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ProjectCard } from "@/components/ProjectCard";
-import { SplineScene } from "@/components/SplineScene";
 import manaverseLogo from "@/assets/manaverse-logo.png";
 import ibmTeam from "@/assets/ibm-team.png";
 import aestheticaLogo from "@/assets/aesthetica-logo.png";
@@ -56,13 +55,8 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-6 overflow-hidden">
-        {/* Spline scene - positioned top-left, partially off-canvas */}
-        <div className="absolute -left-32 -top-32 md:-left-10 md:-top-10 w-[450px] h-[450px] md:w-[600px] md:h-[600px] pointer-events-none opacity-60 md:opacity-80 hidden sm:block">
-          <SplineScene className="w-full h-full" />
-        </div>
-
-        <div className="max-w-[1180px] mx-auto w-full relative z-10">
+      <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-6">
+        <div className="max-w-[1180px] mx-auto w-full">
           <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
             {/* Portrait */}
             <div className="flex-shrink-0 animate-hero">
