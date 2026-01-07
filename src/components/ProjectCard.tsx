@@ -38,7 +38,7 @@ export const ProjectCard = ({ title, outcome, tags, image, link, category, role,
             <div 
               className="w-full h-full flex items-center justify-center p-6"
               style={{
-                background: "linear-gradient(135deg, hsl(224 76% 33% / 0.06), hsl(224 76% 45% / 0.03))",
+                background: "linear-gradient(135deg, hsl(var(--primary) / 0.06), hsl(var(--primary) / 0.03))",
               }}
             >
               <span className="text-2xl font-semibold text-foreground/80 text-center">{title}</span>

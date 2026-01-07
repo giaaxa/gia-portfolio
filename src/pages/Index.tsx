@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ArrowUpRight, Mail, Send, Instagram } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Section, SectionHeader } from "@/components/Section";
@@ -7,6 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ProjectCard } from "@/components/ProjectCard";
+import { CustomCursor } from "@/components/CustomCursor";
+import { ParallaxCard } from "@/components/ParallaxCard";
+import { useParallax } from "@/hooks/useParallax";
 import manaverseLogo from "@/assets/manaverse-logo.png";
 import ibmTeam from "@/assets/ibm-team.png";
 import aestheticaLogo from "@/assets/aesthetica-logo.png";
@@ -18,6 +21,8 @@ const Index = () => {
     email: "",
     message: "",
   });
+  
+  const heroParallax = useParallax(0.15);
 
   useEffect(() => {
     const observerOptions = {
@@ -51,16 +56,18 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
+      <CustomCursor />
       <ScrollProgress />
       <Navbar />
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-6 overflow-hidden">
-        {/* Subtle background gradient */}
+        {/* Subtle background gradient with parallax */}
         <div 
-          className="absolute top-0 right-0 w-[60%] h-[80%] pointer-events-none opacity-[0.04]"
+          className="absolute top-0 right-0 w-[60%] h-[80%] pointer-events-none opacity-[0.04] dark:opacity-[0.08]"
           style={{
-            background: 'radial-gradient(ellipse at top right, hsl(224 76% 45%), transparent 70%)',
+            background: 'radial-gradient(ellipse at top right, hsl(var(--primary)), transparent 70%)',
+            transform: `translateY(${heroParallax * 0.5}px)`,
           }}
         />
 
@@ -72,7 +79,7 @@ const Index = () => {
               <div 
                 className="absolute -inset-8 md:-inset-12 animate-float-orb pointer-events-none hidden sm:block"
                 style={{
-                  background: 'radial-gradient(circle, hsl(224 76% 45% / 0.25) 0%, hsl(224 76% 33% / 0.1) 40%, transparent 70%)',
+                  background: 'radial-gradient(circle, hsl(var(--primary) / 0.25) 0%, hsl(var(--primary) / 0.1) 40%, transparent 70%)',
                   filter: 'blur(30px)',
                 }}
               />
@@ -146,7 +153,7 @@ const Index = () => {
         />
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="reveal">
+          <ParallaxCard speed={0.03} className="reveal">
             <ProjectCard
               title="ManaVerse"
               outcome="A wellness tech startup building hardware and software for mental clarity. Privacy-first wearables that help you reset."
@@ -158,9 +165,9 @@ const Index = () => {
               year="2024"
               external
             />
-          </div>
+          </ParallaxCard>
           
-          <div className="reveal" style={{ transitionDelay: '0.1s' }}>
+          <ParallaxCard speed={0.05} className="reveal" style={{ transitionDelay: '0.1s' }}>
             <ProjectCard
               title="IBM SAP Consulting"
               outcome="Coordinated finance testing across global enterprise teams. Contributed to GenAI initiatives for internal tooling."
@@ -171,9 +178,9 @@ const Index = () => {
               role="Junior Consultant"
               year="2023"
             />
-          </div>
+          </ParallaxCard>
 
-          <div className="reveal" style={{ transitionDelay: '0.2s' }}>
+          <ParallaxCard speed={0.04} className="reveal" style={{ transitionDelay: '0.2s' }}>
             <ProjectCard
               title="Aesthetica Studio"
               outcome="Creative direction and brand strategy for a boutique design studio. Built identity systems and web presence."
@@ -184,7 +191,7 @@ const Index = () => {
               role="Creative Director"
               year="2022"
             />
-          </div>
+          </ParallaxCard>
         </div>
       </Section>
 
@@ -310,7 +317,7 @@ const Index = () => {
               {["Python", "SQL", "Power BI", "Figma", "Notion", "Canva", "CapCut", "DaVinci Resolve"].map((tool) => (
                 <span 
                   key={tool} 
-                  className="px-3 py-1.5 text-sm rounded-full bg-white border border-foreground/10 text-muted-foreground hover:border-foreground/18 transition-colors"
+                  className="px-3 py-1.5 text-sm rounded-full bg-card border border-foreground/10 text-muted-foreground hover:border-foreground/18 transition-colors"
                 >
                   {tool}
                 </span>
@@ -426,7 +433,7 @@ const Index = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
-                className="rounded-xl bg-white border-foreground/10 focus:border-primary h-11"
+                className="rounded-xl bg-card border-foreground/10 focus:border-primary h-11"
               />
               <Input
                 type="email"
@@ -434,7 +441,7 @@ const Index = () => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
-                className="rounded-xl bg-white border-foreground/10 focus:border-primary h-11"
+                className="rounded-xl bg-card border-foreground/10 focus:border-primary h-11"
               />
               <Textarea
                 placeholder="Your message"
@@ -442,7 +449,7 @@ const Index = () => {
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 required
                 rows={4}
-                className="rounded-xl bg-white border-foreground/10 focus:border-primary resize-none"
+                className="rounded-xl bg-card border-foreground/10 focus:border-primary resize-none"
               />
               <Button 
                 type="submit" 

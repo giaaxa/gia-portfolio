@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
   { label: "Work", href: "#work", id: "work" },
@@ -38,7 +39,7 @@ export const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-white/90 backdrop-blur-xl border-b border-foreground/8 shadow-sm" 
+          ? "bg-background/90 backdrop-blur-xl border-b border-foreground/8 shadow-sm" 
           : "bg-transparent"
       }`}
     >
@@ -73,6 +74,7 @@ export const Navbar = () => {
                 />
               </a>
             ))}
+            <ThemeToggle />
             <Button 
               asChild 
               size="sm" 
@@ -97,7 +99,7 @@ export const Navbar = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-1 animate-fade-in bg-white rounded-2xl p-4 border border-foreground/8">
+          <div className="md:hidden mt-4 pb-4 space-y-1 animate-fade-in bg-card rounded-2xl p-4 border border-foreground/8">
             {navItems.map((item) => (
               <a
                 key={item.href}
