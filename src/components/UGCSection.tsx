@@ -167,47 +167,60 @@ export const UGCSection = () => {
   return (
     <Section id="ugc" className="scroll-mt-20">
       {/* Hero Block */}
-      <div className="max-w-3xl mb-20 reveal">
-        <span className="text-xs px-3 py-1.5 rounded-full bg-primary/8 text-primary border border-primary/12 mb-6 inline-flex items-center gap-1.5">
-          <Sparkles className="w-3 h-3" />
-          UGC Services
-        </span>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
-          UGC for UK Stays
-        </h2>
-        <p className="text-lg md:text-xl text-primary font-medium mb-4">
-          Booking-focused Reels + listing-ready assets (UGC, not influencer posts)
-        </p>
-        <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-2xl">
-          This is UGC: I create content for your Airbnb/homestay listing + socials. It's about better assets and conversions — not my follower count.
-        </p>
+      <div className="grid lg:grid-cols-[1fr,320px] gap-12 lg:gap-16 items-start mb-20">
+        {/* Text Content */}
+        <div className="max-w-xl reveal">
+          <span className="text-[11px] px-2.5 py-1 rounded-full bg-muted text-muted-foreground border border-foreground/8 mb-5 inline-flex items-center gap-1.5 font-medium uppercase tracking-wide">
+            <Sparkles className="w-3 h-3" />
+            UGC Services
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground mb-4 leading-[1.15] tracking-tight">
+            UGC for UK Stays
+          </h2>
+          <p className="text-base md:text-lg text-foreground/70 font-medium mb-3">
+            Booking-focused Reels + listing-ready assets (UGC, not influencer posts)
+          </p>
+          <p className="text-muted-foreground text-base leading-relaxed mb-8">
+            I create content for your Airbnb/homestay listing + socials. Better assets → more bookings. Follower count isn't the point.
+          </p>
 
-        <div className="flex flex-wrap gap-3 mb-6">
-          <Button 
-            asChild
-            className="rounded-full px-6 h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-medium touch-feedback"
-          >
-            <a href="#ugc-form">
-              Request a Shot List
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </a>
-          </Button>
-          <Button 
-            asChild
-            variant="outline"
-            className="rounded-full px-6 h-11 border-foreground/15 text-foreground hover:bg-muted touch-feedback"
-          >
-            <a href="mailto:gia.pereira31@yahoo.com">
-              <Mail className="w-4 h-4 mr-2" />
-              Email Me
-            </a>
-          </Button>
+          <div className="flex flex-wrap gap-3 mb-5">
+            <Button 
+              asChild
+              className="rounded-full px-6 h-11 bg-foreground hover:bg-foreground/90 text-background font-medium touch-feedback shadow-sm"
+            >
+              <a href="#ugc-form">
+                Request a Shot List
+                <ChevronRight className="w-4 h-4 ml-1.5" />
+              </a>
+            </Button>
+            <Button 
+              asChild
+              variant="outline"
+              className="rounded-full px-6 h-11 border-foreground/20 text-foreground hover:bg-foreground/5 font-medium touch-feedback"
+            >
+              <a href="mailto:gia.pereira31@yahoo.com">
+                <Mail className="w-4 h-4 mr-2" />
+                Email Me
+              </a>
+            </Button>
+          </div>
+
+          <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+            <MapPin className="w-3 h-3" />
+            UK-based • Wales / Lake District / UK travel
+          </p>
         </div>
 
-        <p className="text-sm text-muted-foreground flex items-center gap-2">
-          <MapPin className="w-3.5 h-3.5" />
-          UK-based • Wales / Lake District / UK travel
-        </p>
+        {/* Desktop Mini-Collage */}
+        <div className="hidden lg:flex flex-col gap-3 reveal" style={{ transitionDelay: '0.1s' }}>
+          <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide mb-1">Sample visuals</p>
+          <div className="grid grid-cols-2 gap-2.5">
+            <div className="aspect-[4/5] rounded-xl bg-gradient-to-br from-foreground/[0.06] to-foreground/[0.02] border border-foreground/8" />
+            <div className="aspect-[4/5] rounded-xl bg-gradient-to-br from-foreground/[0.08] to-foreground/[0.03] border border-foreground/8 translate-y-4" />
+          </div>
+          <div className="aspect-[16/9] rounded-xl bg-gradient-to-br from-foreground/[0.05] to-foreground/[0.02] border border-foreground/8 -mt-1" />
+        </div>
       </div>
 
       {/* What You Get */}
