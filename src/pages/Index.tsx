@@ -10,6 +10,7 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ParallaxCard } from "@/components/ParallaxCard";
 import { useParallax } from "@/hooks/useParallax";
+import { UGCSection } from "@/components/UGCSection";
 import manaverseLogo from "@/assets/manaverse-logo.png";
 import ibmTeam from "@/assets/ibm-team.png";
 import aestheticaLogo from "@/assets/aesthetica-logo.png";
@@ -109,14 +110,14 @@ const Index = () => {
               <div className="flex flex-wrap gap-3 mt-6 animate-hero-delayed" style={{ animationDelay: '0.2s' }}>
                 <Button 
                   asChild 
-                  className="rounded-full px-6 h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                  className="rounded-full px-6 h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-medium touch-feedback"
                 >
                   <a href="#work">View work</a>
                 </Button>
                 <Button 
                   asChild 
                   variant="outline" 
-                  className="rounded-full px-6 h-11 border-foreground/15 text-foreground hover:bg-muted"
+                  className="rounded-full px-6 h-11 border-foreground/15 text-foreground hover:bg-muted touch-feedback"
                 >
                   <a 
                     href="https://instagram.com/usecodegia" 
@@ -377,6 +378,9 @@ const Index = () => {
           </div>
         </div>
       </Section>
+
+      {/* UGC Section */}
+      <UGCSection />
 
       {/* Contact Section */}
       <Section id="contact">

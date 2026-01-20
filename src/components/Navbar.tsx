@@ -5,6 +5,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
   { label: "Work", href: "#work", id: "work" },
+  { label: "UGC", href: "#ugc", id: "ugc" },
   { label: "About", href: "#about", id: "about" },
   { label: "Contact", href: "#contact", id: "contact" },
 ];
@@ -18,7 +19,7 @@ export const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = ["home", "work", "content", "about", "contact"];
+      const sections = ["home", "work", "ugc", "content", "about", "contact"];
       for (const sectionId of sections.reverse()) {
         const element = document.getElementById(sectionId);
         if (element) {
