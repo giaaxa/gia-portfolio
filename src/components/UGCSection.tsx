@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Video, Camera, FolderOpen, Check, Download, Mail, Instagram, ChevronRight, MapPin, Calendar, Sparkles } from "lucide-react";
-import { Section, SectionHeader } from "./Section";
+import { Video, Camera, FolderOpen, Mail, ChevronRight, MapPin, Sparkles, ExternalLink, Plane, Laptop, Package, Heart } from "lucide-react";
+import { Section } from "./Section";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -11,193 +11,140 @@ import { useToast } from "@/hooks/use-toast";
 const features = [
   {
     icon: Video,
-    title: "Vertical videos for Reels/TikTok",
-    description: "Scroll-stopping content optimised for social algorithms"
+    title: "Vertical videos",
+    description: "Scroll-stopping Reels and TikToks for any niche"
   },
   {
     icon: Camera,
-    title: "Listing-ready photo sets",
-    description: "Wide shots + details + amenities that convert browsers to bookers"
+    title: "Photo sets",
+    description: "Curated lifestyle shots ready for listings, feeds, and ads"
   },
   {
     icon: FolderOpen,
-    title: "Raw footage included",
-    description: "All usable clips from the shoot delivered via Drive"
+    title: "Raw footage",
+    description: "All usable clips delivered via Drive"
   }
 ];
 
-const packages = [
-  {
-    name: "Weekday Content Swap",
-    badge: "Best for off-peak",
-    badgeColor: "bg-primary/10 text-primary",
-    price: "Gifted stay",
-    priceNote: "In exchange for 1–2 weekday nights (Sun–Thu, off-peak is perfect)",
-    deliverables: [
-      "3 edited vertical videos (15–30s)",
-      "30–50 edited photos (Airbnb-ready)",
-      "Raw footage included (usable clips)",
-      "Turnaround: 5–7 days"
-    ],
-    usage: "Organic usage included (Airbnb listing + IG/TikTok). Paid ads usage available."
-  },
-  {
-    name: "Starter Listing Refresh",
-    badge: null,
-    price: "£250–£450",
-    priceNote: "Paid package",
-    deliverables: [
-      "4 edited vertical videos (15–30s)",
-      "30–60 edited photos",
-      "Raw footage included",
-      "1 round of revisions",
-      "Turnaround: 7 days"
-    ],
-    usage: "Organic usage included. Ads/licensing available."
-  },
-  {
-    name: "Bookable Stay Pack",
-    badge: "Best value",
-    badgeColor: "bg-accent/10 text-accent",
-    price: "£500–£850",
-    priceNote: "Premium package",
-    deliverables: [
-      "6 edited videos (mix of 15–30s + one 45–60s walkthrough + one hook variant)",
-      "50–80 edited photos",
-      "Raw footage included",
-      "Simple caption + hook suggestions",
-      "Turnaround: 7–10 days"
-    ],
-    usage: "Organic usage included. Ads/licensing available."
-  }
-];
-
-const addons = [
-  { name: "Extra edited video", price: "£80–£150" },
-  { name: "Extra 20 photos", price: "£60–£120" },
-  { name: "Rush delivery (48–72 hrs)", price: "+£75–£150" },
-  { name: "Paid ads usage / whitelisting", price: "quote" }
+const categories = [
+  { icon: Plane, label: "Travel", color: "from-blue-500/20 to-cyan-500/20" },
+  { icon: Laptop, label: "Tech", color: "from-violet-500/20 to-purple-500/20" },
+  { icon: Package, label: "Products", color: "from-amber-500/20 to-orange-500/20" },
+  { icon: Heart, label: "Lifestyle", color: "from-rose-500/20 to-pink-500/20" }
 ];
 
 const steps = [
   {
     number: "1",
-    title: "Share your property",
-    description: "Send your property link + goals"
+    title: "Share your brief",
+    description: "Tell me about your brand, product, or property"
   },
   {
     number: "2",
-    title: "Get a shot list",
-    description: "I send a mini shot list + confirm deliverables"
+    title: "Get a content plan",
+    description: "I send a shot list + confirm deliverables"
   },
   {
     number: "3",
     title: "Receive content",
-    description: "You receive edited content within 5–10 days"
+    description: "Edited content delivered within 5–10 days"
   }
 ];
 
 const faqs = [
   {
     question: "Do you need a big following?",
-    answer: "No — this is UGC. I create assets for your listing and socials so you can convert viewers into bookings."
+    answer: "No — this is UGC. I create assets for your brand so you can convert viewers. It's about the content quality, not follower count."
   },
   {
     question: "What's included in raw footage?",
-    answer: "All usable clips from the shoot delivered via Drive."
+    answer: "All usable clips from the shoot delivered via Drive. You get everything that's usable."
   },
   {
     question: "Can I use the content in ads?",
-    answer: "Yes — paid ads/whitelisting is available as an add-on."
-  },
-  {
-    question: "Do you travel?",
-    answer: "Yes. UK-based. For far locations, travel costs may apply unless we agree otherwise."
+    answer: "Yes — paid ads usage and whitelisting is available. Check my portfolio for pricing details."
   }
 ];
 
 export const UGCSection = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
-    propertyLink: "",
-    location: "",
-    preferredDates: "",
-    goal: "",
+    contentType: "",
     name: "",
     email: "",
-    message: ""
+    brief: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    if (!formData.propertyLink || !formData.location || !formData.name || !formData.email) {
+    if (!formData.name || !formData.email) {
       toast({
         title: "Please fill in required fields",
-        description: "Property link, location, name, and email are required.",
+        description: "Name and email are required.",
         variant: "destructive"
       });
       return;
     }
 
     setIsSubmitting(true);
-    
-    // Simulate submission
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     toast({
       title: "Got it — I'll reply soon.",
-      description: "Thanks for your interest! I'll review your property and get back to you.",
+      description: "Thanks for your interest! I'll review your brief and get back to you.",
     });
 
     setFormData({
-      propertyLink: "",
-      location: "",
-      preferredDates: "",
-      goal: "",
+      contentType: "",
       name: "",
       email: "",
-      message: ""
+      brief: ""
     });
     setIsSubmitting(false);
   };
 
   return (
-    <Section id="ugc" className="scroll-mt-20">
+    <Section id="ugc" className="scroll-mt-20 relative overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-primary/8 via-primary/4 to-transparent blur-3xl animate-float-orb" />
+        <div className="absolute bottom-1/3 left-0 w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-primary/6 via-transparent to-transparent blur-3xl animate-float-orb" style={{ animationDelay: '-3s' }} />
+      </div>
+
       {/* Hero Block */}
-      <div className="grid lg:grid-cols-[1fr,320px] gap-12 lg:gap-16 items-start mb-20">
+      <div className="grid lg:grid-cols-[1fr,1fr] gap-12 lg:gap-20 items-center mb-24">
         {/* Text Content */}
-        <div className="max-w-xl reveal">
-          <span className="text-[11px] px-2.5 py-1 rounded-full bg-muted text-muted-foreground border border-foreground/8 mb-5 inline-flex items-center gap-1.5 font-medium uppercase tracking-wide">
+        <div className="max-w-lg reveal">
+          <span className="text-[11px] px-2.5 py-1 rounded-full bg-muted text-muted-foreground border border-foreground/8 mb-6 inline-flex items-center gap-1.5 font-medium uppercase tracking-wide">
             <Sparkles className="w-3 h-3" />
             UGC Services
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-foreground mb-4 leading-[1.15] tracking-tight">
-            UGC for UK Stays
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-5 leading-[1.1] tracking-tight">
+            UGC
           </h2>
-          <p className="text-base md:text-lg text-foreground/70 font-medium mb-3">
-            Booking-focused Reels + listing-ready assets (UGC, not influencer posts)
+          <p className="text-lg md:text-xl text-foreground/80 font-medium mb-4">
+            Scroll-stopping content for brands, stays, and products
           </p>
           <p className="text-muted-foreground text-base leading-relaxed mb-8">
-            I create content for your Airbnb/homestay listing + socials. Better assets → more bookings. Follower count isn't the point.
+            I create Reels, photos, and video assets for travel, tech, and product brands. This is UGC — it's about the content, not follower count.
           </p>
 
-          <div className="flex flex-wrap gap-3 mb-5">
+          <div className="flex flex-wrap gap-3 mb-6">
             <Button 
               asChild
-              className="rounded-full px-6 h-11 bg-foreground hover:bg-foreground/90 text-background font-medium touch-feedback shadow-sm"
+              className="rounded-full px-6 h-12 bg-foreground hover:bg-foreground/90 text-background font-medium touch-feedback shadow-md hover:shadow-lg transition-all"
             >
-              <a href="#ugc-form">
-                Request a Shot List
-                <ChevronRight className="w-4 h-4 ml-1.5" />
+              <a href="https://gia-pereira.my.canva.site/" target="_blank" rel="noopener noreferrer">
+                View Portfolio
+                <ExternalLink className="w-4 h-4 ml-2" />
               </a>
             </Button>
             <Button 
               asChild
               variant="outline"
-              className="rounded-full px-6 h-11 border-foreground/20 text-foreground hover:bg-foreground/5 font-medium touch-feedback"
+              className="rounded-full px-6 h-12 border-foreground/20 text-foreground hover:bg-foreground/5 font-medium touch-feedback"
             >
               <a href="mailto:gia.pereira31@yahoo.com">
                 <Mail className="w-4 h-4 mr-2" />
@@ -208,23 +155,43 @@ export const UGCSection = () => {
 
           <p className="text-xs text-muted-foreground flex items-center gap-1.5">
             <MapPin className="w-3 h-3" />
-            UK-based • Wales / Lake District / UK travel
+            UK-based creator
           </p>
         </div>
 
-        {/* Desktop Mini-Collage */}
-        <div className="hidden lg:flex flex-col gap-3 reveal" style={{ transitionDelay: '0.1s' }}>
-          <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide mb-1">Sample visuals</p>
-          <div className="grid grid-cols-2 gap-2.5">
-            <div className="aspect-[4/5] rounded-xl bg-gradient-to-br from-foreground/[0.06] to-foreground/[0.02] border border-foreground/8" />
-            <div className="aspect-[4/5] rounded-xl bg-gradient-to-br from-foreground/[0.08] to-foreground/[0.03] border border-foreground/8 translate-y-4" />
-          </div>
-          <div className="aspect-[16/9] rounded-xl bg-gradient-to-br from-foreground/[0.05] to-foreground/[0.02] border border-foreground/8 -mt-1" />
+        {/* Category Cards - Desktop */}
+        <div className="hidden lg:grid grid-cols-2 gap-4 reveal" style={{ transitionDelay: '0.15s' }}>
+          {categories.map((category, index) => (
+            <div
+              key={category.label}
+              className={`group relative p-6 rounded-2xl bg-gradient-to-br ${category.color} border border-foreground/8 hover:border-foreground/15 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg cursor-default`}
+              style={{ 
+                animationDelay: `${index * 0.1}s`,
+                transform: index % 2 === 1 ? 'translateY(16px)' : 'none'
+              }}
+            >
+              <category.icon className="w-8 h-8 text-foreground/70 mb-3 group-hover:text-foreground transition-colors" />
+              <p className="font-semibold text-foreground">{category.label}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Category Cards - Mobile horizontal scroll */}
+        <div className="lg:hidden flex gap-3 overflow-x-auto pb-2 -mx-6 px-6 snap-x snap-mandatory scrollbar-hide reveal">
+          {categories.map((category) => (
+            <div
+              key={category.label}
+              className={`flex-shrink-0 w-28 p-4 rounded-xl bg-gradient-to-br ${category.color} border border-foreground/8 snap-center touch-feedback`}
+            >
+              <category.icon className="w-6 h-6 text-foreground/70 mb-2" />
+              <p className="font-medium text-sm text-foreground">{category.label}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       {/* What You Get */}
-      <div className="mb-20">
+      <div className="mb-24">
         <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-8 reveal">What you get</h3>
         <div className="grid md:grid-cols-3 gap-6">
           {features.map((feature, index) => (
@@ -233,7 +200,7 @@ export const UGCSection = () => {
               className="card-elevated-hover p-6 reveal touch-feedback"
               style={{ transitionDelay: `${index * 0.1}s` }}
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/8 flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                 <feature.icon className="w-5 h-5 text-primary" />
               </div>
               <h4 className="font-semibold text-foreground mb-2">{feature.title}</h4>
@@ -241,121 +208,50 @@ export const UGCSection = () => {
             </div>
           ))}
         </div>
-        <p className="text-xs text-muted-foreground mt-4 reveal">
-          Raw footage included = all usable clips from the shoot (not unusable/accidental clips).
-        </p>
       </div>
 
-      {/* Sample Visuals Gallery */}
-      <div className="mb-20 reveal">
-        <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-6">Sample visuals</h3>
-        <div className="flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-6 md:overflow-visible">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div 
-              key={i}
-              className="flex-shrink-0 w-32 md:w-auto aspect-[4/5] rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-foreground/8 snap-center touch-feedback"
-              style={{
-                background: `linear-gradient(135deg, hsl(var(--primary) / ${0.05 + i * 0.02}), hsl(var(--primary) / ${0.02 + i * 0.01}))`
-              }}
-            />
-          ))}
-        </div>
-        <p className="text-xs text-muted-foreground mt-3 text-center md:text-left">
-          Placeholder images — actual samples coming soon
-        </p>
-      </div>
-
-      {/* Packages */}
-      <div className="mb-12">
-        <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-8 reveal">Packages</h3>
-        <div className="grid md:grid-cols-3 gap-6">
-          {packages.map((pkg, index) => (
-            <div 
-              key={pkg.name}
-              className="card-elevated p-6 flex flex-col reveal touch-feedback"
-              style={{ transitionDelay: `${index * 0.1}s` }}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <h4 className="font-semibold text-foreground text-lg">{pkg.name}</h4>
-                {pkg.badge && (
-                  <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${pkg.badgeColor || 'bg-muted text-muted-foreground'}`}>
-                    {pkg.badge}
-                  </span>
-                )}
+      {/* How it works - Visual Timeline */}
+      <div className="mb-24">
+        <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-10 reveal">How it works</h3>
+        <div className="relative">
+          {/* Connecting line - desktop */}
+          <div className="hidden md:block absolute top-6 left-[calc(16.67%-20px)] right-[calc(16.67%-20px)] h-0.5 bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20" />
+          
+          <div className="grid md:grid-cols-3 gap-8 md:gap-6">
+            {steps.map((step, index) => (
+              <div 
+                key={step.number}
+                className="relative flex flex-col items-center text-center reveal"
+                style={{ transitionDelay: `${index * 0.15}s` }}
+              >
+                {/* Step number */}
+                <div className="relative z-10 w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center font-bold text-lg shadow-lg shadow-primary/25 mb-4">
+                  {step.number}
+                </div>
+                
+                {/* Content */}
+                <h4 className="font-semibold text-foreground mb-2">{step.title}</h4>
+                <p className="text-sm text-muted-foreground max-w-[200px]">{step.description}</p>
               </div>
-              
-              <p className="text-2xl font-bold text-foreground mb-1">{pkg.price}</p>
-              <p className="text-sm text-muted-foreground mb-6">{pkg.priceNote}</p>
-
-              <ul className="space-y-3 mb-6 flex-1">
-                {pkg.deliverables.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <p className="text-xs text-muted-foreground border-t border-foreground/8 pt-4">
-                {pkg.usage}
-              </p>
-            </div>
-          ))}
-        </div>
-        <p className="text-sm text-muted-foreground mt-6 text-center reveal">
-          Custom quotes available for photo-only, socials-only, or a full listing refresh.
-        </p>
-      </div>
-
-      {/* Add-ons */}
-      <div className="mb-20 reveal">
-        <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-6">Add-ons</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {addons.map((addon) => (
-            <div key={addon.name} className="card-elevated p-4 touch-feedback">
-              <p className="text-sm text-foreground font-medium mb-1">{addon.name}</p>
-              <p className="text-sm text-muted-foreground">{addon.price}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* How it works */}
-      <div className="mb-20">
-        <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-8 reveal">How it works</h3>
-        <div className="grid md:grid-cols-3 gap-6">
-          {steps.map((step, index) => (
-            <div 
-              key={step.number}
-              className="flex items-start gap-4 reveal touch-feedback"
-              style={{ transitionDelay: `${index * 0.1}s` }}
-            >
-              <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold flex-shrink-0">
-                {step.number}
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">{step.title}</h4>
-                <p className="text-sm text-muted-foreground">{step.description}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       {/* FAQ */}
-      <div className="mb-20 max-w-2xl reveal">
-        <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-6">FAQ</h3>
-        <Accordion type="single" collapsible className="space-y-2">
+      <div className="mb-24 max-w-2xl mx-auto reveal">
+        <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-8 text-center">FAQ</h3>
+        <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
               value={`faq-${index}`}
               className="card-elevated px-6 border-0 touch-feedback"
             >
-              <AccordionTrigger className="text-left text-foreground hover:no-underline py-4">
+              <AccordionTrigger className="text-left text-foreground hover:no-underline py-5">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-4">
+              <AccordionContent className="text-muted-foreground pb-5">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -364,125 +260,97 @@ export const UGCSection = () => {
       </div>
 
       {/* CTA Form */}
-      <div id="ugc-form" className="card-elevated p-8 md:p-10 max-w-2xl mx-auto scroll-mt-24 reveal">
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-semibold text-foreground mb-2">Request a Shot List</h3>
-          <p className="text-muted-foreground">
-            Send your property link and I'll reply with a tailored shot list + the best package for your stay.
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid md:grid-cols-2 gap-4">
-            <Input
-              placeholder="Property link *"
-              value={formData.propertyLink}
-              onChange={(e) => setFormData({ ...formData, propertyLink: e.target.value })}
-              required
-              className="rounded-xl bg-background border-foreground/10 focus:border-primary h-11"
-            />
-            <Input
-              placeholder="Location *"
-              value={formData.location}
-              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-              required
-              className="rounded-xl bg-background border-foreground/10 focus:border-primary h-11"
-            />
+      <div id="ugc-form" className="relative max-w-xl mx-auto scroll-mt-24 reveal">
+        {/* Gradient border effect */}
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-[1.5rem] blur-sm" />
+        
+        <div className="relative card-elevated p-8 md:p-10 rounded-[1.25rem]">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-foreground mb-2">Let's create something</h3>
+            <p className="text-muted-foreground text-sm">
+              Tell me what you need. I'll get back with a plan.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <Input
-              placeholder="Preferred dates (optional)"
-              value={formData.preferredDates}
-              onChange={(e) => setFormData({ ...formData, preferredDates: e.target.value })}
-              className="rounded-xl bg-background border-foreground/10 focus:border-primary h-11"
-            />
+          <form onSubmit={handleSubmit} className="space-y-4">
             <Select 
-              value={formData.goal} 
-              onValueChange={(value) => setFormData({ ...formData, goal: value })}
+              value={formData.contentType} 
+              onValueChange={(value) => setFormData({ ...formData, contentType: value })}
             >
-              <SelectTrigger className="rounded-xl bg-background border-foreground/10 focus:border-primary h-11">
-                <SelectValue placeholder="Goal" />
+              <SelectTrigger className="rounded-xl bg-background border-foreground/10 focus:border-primary h-12">
+                <SelectValue placeholder="What do you need content for?" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="weekday">Weekday bookings</SelectItem>
-                <SelectItem value="refresh">Listing refresh</SelectItem>
-                <SelectItem value="social">Social content</SelectItem>
-                <SelectItem value="ads">Ads-ready UGC</SelectItem>
+                <SelectItem value="travel">Travel / Stay</SelectItem>
+                <SelectItem value="tech">Tech / Product</SelectItem>
+                <SelectItem value="lifestyle">Lifestyle</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
               </SelectContent>
             </Select>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <Input
-              placeholder="Name *"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
-              className="rounded-xl bg-background border-foreground/10 focus:border-primary h-11"
+            <div className="grid grid-cols-2 gap-4">
+              <Input
+                placeholder="Name *"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+                className="rounded-xl bg-background border-foreground/10 focus:border-primary h-12"
+              />
+              <Input
+                type="email"
+                placeholder="Email *"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+                className="rounded-xl bg-background border-foreground/10 focus:border-primary h-12"
+              />
+            </div>
+
+            <Textarea
+              placeholder="Brief + links (optional)"
+              value={formData.brief}
+              onChange={(e) => setFormData({ ...formData, brief: e.target.value })}
+              rows={3}
+              className="rounded-xl bg-background border-foreground/10 focus:border-primary resize-none"
             />
-            <Input
-              type="email"
-              placeholder="Email *"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-              className="rounded-xl bg-background border-foreground/10 focus:border-primary h-11"
-            />
-          </div>
 
-          <Textarea
-            placeholder="Anything else? (optional)"
-            value={formData.message}
-            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-            rows={3}
-            className="rounded-xl bg-background border-foreground/10 focus:border-primary resize-none"
-          />
+            <Button 
+              type="submit" 
+              disabled={isSubmitting}
+              className="w-full rounded-full bg-foreground hover:bg-foreground/90 text-background font-medium h-12 touch-feedback shadow-md hover:shadow-lg transition-all"
+            >
+              {isSubmitting ? "Sending..." : "Send Inquiry"}
+              <ChevronRight className="w-4 h-4 ml-1" />
+            </Button>
+          </form>
 
-          <Button 
-            type="submit" 
-            disabled={isSubmitting}
-            className="w-full rounded-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium h-12 touch-feedback"
-          >
-            {isSubmitting ? "Sending..." : "Send Request"}
-          </Button>
-        </form>
-
-        {/* Fallback contact */}
-        <div className="mt-8 pt-6 border-t border-foreground/8 text-center space-y-2">
-          <p className="text-sm text-muted-foreground">
-            Prefer email?{" "}
-            <a href="mailto:gia.pereira31@yahoo.com" className="text-foreground hover:text-primary transition-colors link-underline">
-              gia.pereira31@yahoo.com
-            </a>
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Instagram:{" "}
+          <div className="mt-6 pt-6 border-t border-foreground/8 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
             <a 
-              href="https://instagram.com/usecodegia" 
+              href="https://gia-pereira.my.canva.site/" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-foreground hover:text-primary transition-colors"
+              className="text-primary hover:text-primary/80 font-medium flex items-center gap-1.5 link-underline"
             >
-              @usecodegia
+              View full portfolio + rate card
+              <ExternalLink className="w-3.5 h-3.5" />
             </a>
-            {" "}(DM 'STAY')
-          </p>
+          </div>
         </div>
+      </div>
 
-        {/* Rate card download */}
-        <div className="mt-6 text-center">
-          <Button 
-            asChild
-            variant="ghost"
-            size="sm"
-            className="text-muted-foreground hover:text-foreground touch-feedback"
+      {/* Fallback Contact */}
+      <div className="mt-16 text-center reveal">
+        <p className="text-sm text-muted-foreground mb-3">
+          Or reach out directly:
+        </p>
+        <div className="flex items-center justify-center gap-6 text-sm">
+          <a 
+            href="mailto:gia.pereira31@yahoo.com" 
+            className="text-foreground hover:text-primary font-medium flex items-center gap-2 link-underline"
           >
-            <a href="/ratecard.pdf" download>
-              <Download className="w-4 h-4 mr-2" />
-              Download rate card (PDF)
-            </a>
-          </Button>
+            <Mail className="w-4 h-4" />
+            gia.pereira31@yahoo.com
+          </a>
         </div>
       </div>
     </Section>
