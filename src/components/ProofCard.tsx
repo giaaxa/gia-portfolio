@@ -12,33 +12,82 @@ export interface ProofCardData {
 interface ProofCardProps {
   card: ProofCardData;
   index: number;
-  isUnlocked: boolean;
+  isRevealed: boolean;
 }
 
-export const ProofCard = ({ card, index, isUnlocked }: ProofCardProps) => {
+export const ProofCard = ({ card, index, isRevealed }: ProofCardProps) => {
   const CardContent = (
     <div
       className={cn(
-        "card-elevated p-5 space-y-2 transition-all duration-500",
-        isUnlocked && "animate-card-reveal hover:border-foreground/18 hover:shadow-sm",
-        !isUnlocked && "opacity-0 scale-95",
-        card.link && "cursor-pointer"
+        "proof-glass relative p-5 rounded-xl space-y-3 transition-all duration-500",
+        isRevealed && "animate-quest-emerge",
+        !isRevealed && "opacity-0 scale-90",
+        card.link && "cursor-pointer group"
       )}
       style={{
-        animationDelay: isUnlocked ? `${index * 0.1}s` : undefined,
+        animationDelay: isRevealed ? `${index * 0.08}s` : undefined,
+        animationFillMode: "forwards",
       }}
     >
-      <div className="flex items-start justify-between gap-2">
-        <h4 className="font-semibold text-foreground text-sm">{card.title}</h4>
+      {/* Cyan top border glow effect */}
+      <div
+        className="absolute top-0 left-4 right-4 h-px"
+        style={{
+          background: "linear-gradient(90deg, transparent, hsl(200 80% 55% / 0.5), transparent)",
+        }}
+      />
+
+      {/* Title row */}
+      <div className="flex items-start justify-between gap-3">
+        <h4
+          className="font-semibold text-sm leading-tight"
+          style={{ color: "var(--quest-text)" }}
+        >
+          {card.title}
+        </h4>
         {card.link && (
-          <ArrowUpRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+          <ArrowUpRight
+            className={cn(
+              "w-4 h-4 flex-shrink-0 transition-all duration-300",
+              "group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            )}
+            style={{ color: "var(--quest-text-muted)" }}
+          />
         )}
       </div>
-      <p className="text-sm text-muted-foreground leading-relaxed">
+
+      {/* Description */}
+      <p
+        className="text-sm leading-relaxed"
+        style={{ color: "var(--quest-text-muted)" }}
+      >
         {card.description}
       </p>
+
+      {/* Metric badge */}
       {card.metric && (
-        <p className="text-xs font-medium text-primary">{card.metric}</p>
+        <div className="pt-1">
+          <span
+            className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium"
+            style={{
+              background: "hsl(200 80% 55% / 0.12)",
+              color: "hsl(200 80% 55%)",
+              border: "1px solid hsl(200 80% 55% / 0.2)",
+            }}
+          >
+            {card.metric}
+          </span>
+        </div>
+      )}
+
+      {/* Subtle inner glow on hover */}
+      {card.link && (
+        <div
+          className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, hsl(200 80% 55% / 0.06) 0%, transparent 70%)",
+          }}
+        />
       )}
     </div>
   );

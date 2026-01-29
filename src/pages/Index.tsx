@@ -12,6 +12,8 @@ import { CustomCursor } from "@/components/CustomCursor";
 import { ParallaxCard } from "@/components/ParallaxCard";
 import { useParallax } from "@/hooks/useParallax";
 import { BuildQuest } from "@/components/BuildQuest";
+import { NeuralNetworkBg } from "@/components/NeuralNetworkBg";
+import { EcgPulseLine } from "@/components/EcgPulseLine";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import manaverseLogo from "@/assets/manaverse-logo.png";
 import ibmTeam from "@/assets/ibm-team.png";
@@ -55,7 +57,7 @@ const Index = () => {
     console.log("Form submitted:", formData);
   };
 
-  const chips = ["Ex-IBM", "ManaVerse Founder", "Data & AI", "Building in Public", "Shipping Weekly"];
+  const chips = ["Ex-IBM", "ManaVerse Founder", "Shipping Weekly"];
 
   return (
     <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -65,9 +67,15 @@ const Index = () => {
 
       {/* Hero Section - Founder Mode */}
       <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-6 overflow-hidden">
+        {/* ECG pulse line at top */}
+        <EcgPulseLine className="absolute top-20 left-0 right-0 z-0" />
+
+        {/* Neural network background */}
+        <NeuralNetworkBg className="absolute inset-0 z-0" />
+
         {/* Subtle background gradient with parallax */}
-        <div 
-          className="absolute top-0 right-0 w-[60%] h-[80%] pointer-events-none opacity-[0.04] dark:opacity-[0.08]"
+        <div
+          className="absolute top-0 right-0 w-[60%] h-[80%] pointer-events-none opacity-[0.04] dark:opacity-[0.08] z-[1]"
           style={{
             background: 'radial-gradient(ellipse at top right, hsl(var(--primary)), transparent 70%)',
             transform: `translateY(${heroParallax * 0.5}px)`,
@@ -101,8 +109,10 @@ const Index = () => {
 
             <div className="flex-1">
               <div className="space-y-4">
-                <h1 className="animate-hero text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight">
-                  I'm building an Inner Operating System for the mind.
+                <h1 className="animate-hero text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+                  <span className="block">The future isn't just</span>
+                  <span className="block">smarter tech.</span>
+                  <span className="block mt-1 text-primary/90">It's stronger minds.</span>
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed animate-hero-delayed max-w-xl">
                   Ex-IBM (SAP). Building ManaVerse / ManaShakti. Studying Data Analytics & AI. Shipping prototypes weekly.
@@ -347,9 +357,9 @@ const Index = () => {
             <div className="space-y-6 reveal">
               <div className="space-y-4">
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">ManaShakti</p>
-                  <a 
-                    href="mailto:hello@manashakti.app" 
+                  <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Email</p>
+                  <a
+                    href="mailto:hello@manashakti.app"
                     className="flex items-center gap-2 text-foreground hover:text-primary transition-colors link-underline"
                   >
                     <Mail className="w-4 h-4" />
@@ -357,18 +367,19 @@ const Index = () => {
                   </a>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Work</p>
-                  <a 
-                    href="mailto:gia.pereira31@yahoo.com" 
-                    className="flex items-center gap-2 text-foreground hover:text-primary transition-colors link-underline"
+                  <a
+                    href="https://www.linkedin.com/in/gia-pereira-3279631a4/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                   >
-                    <Mail className="w-4 h-4" />
-                    gia.pereira31@yahoo.com
+                    <ArrowUpRight className="w-4 h-4" />
+                    LinkedIn
                   </a>
                 </div>
                 <div>
-                  <a 
-                    href="https://instagram.com/usecodegia" 
+                  <a
+                    href="https://instagram.com/usecodegia"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
@@ -420,7 +431,7 @@ const Index = () => {
       <footer className="py-8 px-6 border-t border-foreground/8">
         <div className="max-w-[1180px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 Gia Pereira
+            © 2025 Gia Pereira
           </p>
           <div className="flex items-center gap-6">
             <Link 
@@ -437,9 +448,9 @@ const Index = () => {
             >
               Instagram
             </a>
-            <a 
-              href="https://linkedin.com" 
-              target="_blank" 
+            <a
+              href="https://www.linkedin.com/in/gia-pereira-3279631a4/"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >

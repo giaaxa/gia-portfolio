@@ -1,11 +1,12 @@
-import { useAchievementUnlock } from "@/hooks/useAchievementUnlock";
-import { QuestProgress } from "./QuestProgress";
+import { useRef, useState, useEffect } from "react";
+import { useExcavation } from "@/hooks/useExcavation";
+import { DepthMeter } from "./DepthMeter";
 import { AchievementCard } from "./AchievementCard";
 import { ProofCardData } from "./ProofCard";
 
 interface Achievement {
   id: string;
-  number: string;
+  icon: "rocket" | "book" | "flag" | "hammer";
   title: string;
   subtitle: string;
   proofCards: ProofCardData[];
@@ -14,7 +15,7 @@ interface Achievement {
 const achievements: Achievement[] = [
   {
     id: "ship",
-    number: "01",
+    icon: "rocket",
     title: "Ship",
     subtitle: "Proof I don't just talk. I build.",
     proofCards: [
@@ -45,7 +46,7 @@ const achievements: Achievement[] = [
   },
   {
     id: "learn",
-    number: "02",
+    icon: "book",
     title: "Learn",
     subtitle: "Becoming technical on purpose.",
     proofCards: [
@@ -70,7 +71,7 @@ const achievements: Achievement[] = [
   },
   {
     id: "lead",
-    number: "03",
+    icon: "flag",
     title: "Lead",
     subtitle: "I can move people, not just pixels.",
     proofCards: [
@@ -86,15 +87,16 @@ const achievements: Achievement[] = [
       },
       {
         title: "Community Building",
-        description: "Growing an engaged audience through building in public and authentic content.",
+        description: "Grew @usecodegia to 150+ followers through weekly build-in-public content and authentic storytelling.",
         link: "https://instagram.com/usecodegia",
         external: true,
+        metric: "30k+ impressions in 3 weeks",
       },
     ],
   },
   {
     id: "build-now",
-    number: "04",
+    icon: "hammer",
     title: "Build Now",
     subtitle: "What's happening this month.",
     proofCards: [
@@ -105,8 +107,8 @@ const achievements: Achievement[] = [
       },
       {
         title: "Applying to",
-        description: "Accelerator programs, grants, and opportunities to scale ManaVerse to the next level.",
-        metric: "2024 cohorts",
+        description: "Accelerator programs and grants to bring ManaVerse to market.",
+        metric: "Active applications",
       },
       {
         title: "Looking for a Cofounder",
@@ -119,44 +121,135 @@ const achievements: Achievement[] = [
 ];
 
 export const BuildQuest = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(false);
+  const [titleVisible, setTitleVisible] = useState(false);
+
   const {
-    currentProgress,
-    totalAchievements,
-    isUnlocked,
+    overallProgress,
+    activeAchievementIndex,
+    isRevealed,
+    getRevealProgress,
     registerElement,
-  } = useAchievementUnlock(achievements);
+    scrollToAchievement,
+  } = useExcavation(achievements);
+
+  // Track when section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+        if (entry.isIntersecting && !titleVisible) {
+          setTitleVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [titleVisible]);
 
   return (
-    <section id="proof" className="relative py-24 px-6">
-      {/* Quest Progress indicator */}
-      <QuestProgress current={currentProgress} total={totalAchievements} />
+    <section
+      ref={sectionRef}
+      id="proof"
+      className="relative quest-theme quest-grain overflow-hidden"
+      style={{
+        background: `linear-gradient(180deg,
+          var(--quest-bg) 0%,
+          var(--quest-strata-1) 25%,
+          var(--quest-strata-2) 50%,
+          var(--quest-strata-3) 75%,
+          var(--quest-bg-deep) 100%
+        )`,
+      }}
+    >
+      {/* Vignette overlay */}
+      <div className="absolute inset-0 quest-vignette pointer-events-none" />
 
-      <div className="max-w-[1180px] mx-auto">
+      {/* Depth meter */}
+      <DepthMeter
+        progress={overallProgress}
+        achievements={achievements.map(a => ({ id: a.id, title: a.title }))}
+        activeIndex={activeAchievementIndex}
+        isVisible={isInView}
+        onMarkerClick={scrollToAchievement}
+      />
+
+      <div className="relative z-10 max-w-[900px] mx-auto px-6 py-24">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <span className="inline-block text-xs px-3 py-1.5 rounded-full bg-primary/8 text-primary border border-primary/12 mb-4">
-            Build Quest
-          </span>
-          <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
+        <div
+          className={`text-center mb-20 transition-all duration-700 ${
+            titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-6 tracking-tight"
+            style={{ color: "var(--quest-text)" }}
+          >
             Proof of Work
           </h2>
-          <p className="text-muted-foreground max-w-md mx-auto">
-            Scroll to unlock each achievement and explore the evidence.
+          <p
+            className="text-lg max-w-md mx-auto"
+            style={{ color: "var(--quest-text-muted)" }}
+          >
+            Scroll to explore each achievement and discover the evidence.
           </p>
         </div>
 
-        {/* Achievement cards */}
-        <div className="divide-y divide-foreground/8">
-          {achievements.map((achievement) => (
-            <AchievementCard
-              key={achievement.id}
-              id={achievement.id}
-              number={achievement.number}
-              title={achievement.title}
-              subtitle={achievement.subtitle}
-              proofCards={achievement.proofCards}
-              isUnlocked={isUnlocked(achievement.id)}
-              registerElement={registerElement}
+        {/* Achievement cards with strata lines between */}
+        <div className="space-y-0">
+          {achievements.map((achievement, index) => (
+            <div key={achievement.id}>
+              <AchievementCard
+                id={achievement.id}
+                icon={achievement.icon}
+                title={achievement.title}
+                subtitle={achievement.subtitle}
+                proofCards={achievement.proofCards}
+                isRevealed={isRevealed(achievement.id)}
+                revealProgress={getRevealProgress(achievement.id)}
+                registerElement={registerElement}
+              />
+
+              {/* Strata line between achievements */}
+              {index < achievements.length - 1 && (
+                <div className="strata-line my-8" />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom transition - particles settling */}
+        <div className="relative h-24 mt-12">
+          <div
+            className="absolute inset-x-0 bottom-0 h-full"
+            style={{
+              background: `linear-gradient(180deg,
+                transparent 0%,
+                rgba(245, 240, 232, 0.02) 50%,
+                rgba(245, 240, 232, 0.05) 100%
+              )`,
+            }}
+          />
+          {/* Scattered glow particles at bottom */}
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                left: `${15 + i * 14}%`,
+                bottom: `${10 + Math.random() * 20}%`,
+                width: 3 + Math.random() * 3,
+                height: 3 + Math.random() * 3,
+                background: "hsl(200 80% 70%)",
+                opacity: 0.2 + Math.random() * 0.2,
+                filter: "blur(1px)",
+              }}
             />
           ))}
         </div>

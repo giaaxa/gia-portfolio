@@ -162,9 +162,9 @@
   }
 
   .card-elevated-hover:hover {
-    border-color: hsl(var(--foreground) / 0.18);
-    box-shadow: 0 4px 24px -4px hsl(var(--foreground) / 0.08);
-    transform: translateY(-4px);
+    border-color: hsl(var(--foreground) / 0.15);
+    box-shadow: 0 4px 16px -4px hsl(var(--foreground) / 0.06);
+    transform: translateY(-2px);
   }
 
   /* Animated underline for links */
@@ -352,6 +352,311 @@
 
   .animate-card-reveal {
     animation: cardReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* ========================================
+     Quest Theme - Cool Spacey Vibe
+     ======================================== */
+
+  /* CSS Variables for quest theme */
+  .quest-theme {
+    --quest-bg: hsl(222 47% 8%);
+    --quest-bg-deep: hsl(222 50% 5%);
+    --quest-glow: hsl(200 80% 55%);
+    --quest-glow-dim: hsl(200 70% 40%);
+    --quest-accent: hsl(170 60% 45%);
+    --quest-text: hsl(210 40% 96%);
+    --quest-text-muted: hsl(215 20% 55%);
+    --quest-strata-1: hsl(222 45% 12%);
+    --quest-strata-2: hsl(222 47% 9%);
+    --quest-strata-3: hsl(222 50% 6%);
+    --quest-glass: hsl(210 40% 96% / 0.06);
+    --quest-glass-border: hsl(200 80% 55% / 0.2);
+  }
+
+  /* Particle drift animation */
+  @keyframes particleDrift {
+    0% {
+      opacity: 0.8;
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--drift-x, 20px), var(--drift-y, -60px)) scale(0.3);
+    }
+  }
+
+  .animate-particle-drift {
+    animation: particleDrift 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  /* Dust sweep reveal animation */
+  @keyframes dustSweep {
+    0% {
+      clip-path: circle(0% at 50% 50%);
+      opacity: 1;
+    }
+    100% {
+      clip-path: circle(150% at 50% 50%);
+      opacity: 0;
+    }
+  }
+
+  .animate-dust-sweep {
+    animation: dustSweep 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Quest emerge animation */
+  @keyframes questEmerge {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.9);
+      filter: blur(8px);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(-4px) scale(1.02);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(-4px) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  .animate-quest-emerge {
+    animation: questEmerge 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  /* Glow pulse for revealed artifacts */
+  @keyframes questGlow {
+    0%, 100% {
+      box-shadow:
+        0 0 20px hsl(200 80% 55% / 0.12),
+        inset 0 1px 0 hsl(210 40% 96% / 0.1);
+    }
+    50% {
+      box-shadow:
+        0 0 30px hsl(200 80% 55% / 0.18),
+        inset 0 1px 0 hsl(210 40% 96% / 0.15);
+    }
+  }
+
+  .animate-quest-glow {
+    animation: questGlow 3s ease-in-out infinite;
+  }
+
+  /* Depth meter fill animation */
+  @keyframes depthFill {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(var(--fill-progress, 0));
+    }
+  }
+
+  /* Strata pulse when passing a marker */
+  @keyframes strataPulse {
+    0% {
+      transform: scaleX(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scaleX(1.5);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleX(1);
+      opacity: 0.5;
+    }
+  }
+
+  .animate-strata-pulse {
+    animation: strataPulse 0.6s ease-out;
+  }
+
+  /* Typewriter effect for subtitle */
+  @keyframes typewriter {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes blinkCursor {
+    0%, 100% {
+      border-color: var(--quest-glow);
+    }
+    50% {
+      border-color: transparent;
+    }
+  }
+
+  .animate-typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--quest-glow);
+    animation:
+      typewriter 2s steps(40) forwards,
+      blinkCursor 0.8s step-end infinite;
+  }
+
+  /* Grain/noise texture overlay */
+  .quest-grain {
+    position: relative;
+  }
+
+  .quest-grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Glass card effect */
+  .quest-glass {
+    background: var(--quest-glass);
+    border: 1px solid var(--quest-glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Inner proof card darker glass */
+  .proof-glass {
+    background: rgba(0, 0, 0, 0.35);
+    border-top: 2px solid var(--quest-glow);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Hover lift for proof cards */
+  .proof-glass:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px hsl(200 80% 55% / 0.12);
+  }
+
+  /* Strata line */
+  .strata-line {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--quest-strata-1) 20%,
+      hsl(200 80% 55% / 0.4) 50%,
+      var(--quest-strata-1) 80%,
+      transparent 100%
+    );
+    opacity: 0.3;
+  }
+
+  /* Vignette effect */
+  .quest-vignette {
+    box-shadow: inset 0 0 150px 50px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Settled glow ring at card base */
+  .glow-ring {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 16px;
+    background: radial-gradient(
+      ellipse at center,
+      hsl(200 80% 55% / 0.15) 0%,
+      transparent 70%
+    );
+    filter: blur(4px);
+  }
+
+  /* Icon glow effect */
+  .icon-glow {
+    filter: drop-shadow(0 0 8px var(--quest-glow));
+  }
+
+  /* ========================================
+     Hero Background Animations
+     ======================================== */
+
+  /* Neural network drift animation */
+  @keyframes neuralDrift {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(10px, -5px);
+    }
+    50% {
+      transform: translate(-5px, 10px);
+    }
+    75% {
+      transform: translate(-10px, -10px);
+    }
+  }
+
+  .animate-neural-drift {
+    animation: neuralDrift 45s ease-in-out infinite;
+  }
+
+  /* ECG pulse animation */
+  @keyframes ecgPulse {
+    0%, 100% {
+      opacity: 0.08;
+    }
+    50% {
+      opacity: 0.15;
+    }
+  }
+
+  @keyframes ecgDraw {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .animate-ecg-pulse {
+    animation: ecgPulse 2.5s ease-in-out infinite;
+  }
+
+  .animate-ecg-draw {
+    stroke-dasharray: 1000;
+    animation: ecgDraw 3s ease-out forwards;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-particle-drift,
+    .animate-dust-sweep,
+    .animate-quest-emerge,
+    .animate-quest-glow,
+    .animate-strata-pulse,
+    .animate-typewriter,
+    .animate-neural-drift,
+    .animate-ecg-pulse,
+    .animate-ecg-draw {
+      animation: none !important;
+    }
+
+    .animate-quest-emerge {
+      opacity: 1;
+      transform: translateY(-4px) scale(1);
+      filter: blur(0);
+    }
+
+    .animate-ecg-pulse {
+      opacity: 0.1;
+    }
   }
 }
 

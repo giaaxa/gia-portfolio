@@ -1,95 +1,151 @@
-import { useEffect, useRef } from "react";
-import { Lock, Check } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Rocket, BookOpen, Flag, Hammer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ProofCard, ProofCardData } from "./ProofCard";
+import { DustOverlay } from "./DustOverlay";
+import { ParticleEffect } from "./ParticleEffect";
 
 interface AchievementCardProps {
   id: string;
-  number: string;
+  icon: "rocket" | "book" | "flag" | "hammer";
   title: string;
   subtitle: string;
   proofCards: ProofCardData[];
-  isUnlocked: boolean;
+  isRevealed: boolean;
+  revealProgress: number;
   registerElement: (id: string, element: HTMLElement | null) => void;
 }
 
+const iconMap = {
+  rocket: Rocket,
+  book: BookOpen,
+  flag: Flag,
+  hammer: Hammer,
+};
+
 export const AchievementCard = ({
   id,
-  number,
+  icon,
   title,
   subtitle,
   proofCards,
-  isUnlocked,
+  isRevealed,
+  revealProgress,
   registerElement,
 }: AchievementCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [showParticles, setShowParticles] = useState(false);
+  const [hasTriggeredParticles, setHasTriggeredParticles] = useState(false);
 
   useEffect(() => {
     registerElement(id, ref.current);
   }, [id, registerElement]);
 
+  // Trigger particles when reveal starts
+  useEffect(() => {
+    if (revealProgress > 0.1 && !hasTriggeredParticles) {
+      setShowParticles(true);
+      setHasTriggeredParticles(true);
+
+      // Hide particles after animation completes
+      const timer = setTimeout(() => {
+        setShowParticles(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [revealProgress, hasTriggeredParticles]);
+
+  const IconComponent = iconMap[icon];
+
   return (
     <div
       ref={ref}
-      className={cn(
-        "relative py-16 transition-all duration-700",
-        !isUnlocked && "pointer-events-none"
-      )}
+      className="relative py-8"
     >
-      {/* Lock overlay for locked state */}
-      {!isUnlocked && (
-        <div className="absolute inset-0 flex items-center justify-center z-10">
-          <div className="flex items-center gap-2 bg-card/80 backdrop-blur-sm px-4 py-2 rounded-full border border-foreground/10">
-            <Lock className="w-4 h-4 text-muted-foreground" />
-            <span className="text-sm text-muted-foreground">Scroll to unlock</span>
-          </div>
-        </div>
-      )}
-
-      {/* Content wrapper with blur effect */}
+      {/* Main artifact container */}
       <div
         className={cn(
-          "transition-all duration-700",
-          !isUnlocked && "blur-sm opacity-50 select-none"
+          "relative quest-glass rounded-2xl p-8 transition-all duration-700",
+          isRevealed && "animate-quest-glow"
         )}
+        style={{
+          boxShadow: isRevealed
+            ? "0 0 40px hsl(200 80% 55% / 0.12), 0 4px 24px rgba(0, 0, 0, 0.3)"
+            : "0 4px 24px rgba(0, 0, 0, 0.2)",
+          transform: isRevealed ? "translateY(-4px)" : "translateY(0)",
+        }}
       >
-        {/* Achievement header */}
-        <div className="flex items-start gap-4 mb-8">
-          {/* Number badge with unlock animation */}
-          <div
-            className={cn(
-              "relative flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center font-mono font-bold text-lg transition-all duration-500",
-              isUnlocked
-                ? "bg-primary text-primary-foreground animate-unlock-glow"
-                : "bg-foreground/5 text-muted-foreground border border-foreground/10"
-            )}
-          >
-            {isUnlocked ? (
-              <Check className="w-5 h-5 animate-checkmark-pop" />
-            ) : (
-              number
-            )}
+        {/* Dust overlay */}
+        <DustOverlay revealProgress={revealProgress} />
+
+        {/* Particle effects */}
+        <ParticleEffect isActive={showParticles} particleCount={10} />
+
+        {/* Content */}
+        <div
+          className={cn(
+            "relative z-0 transition-all duration-500",
+            !isRevealed && revealProgress < 0.5 && "blur-[2px]"
+          )}
+          style={{
+            opacity: Math.max(0.3, revealProgress),
+          }}
+        >
+          {/* Achievement header */}
+          <div className="flex items-start gap-5 mb-8">
+            {/* Icon with glow */}
+            <div
+              className={cn(
+                "flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-500",
+                isRevealed && "icon-glow"
+              )}
+              style={{
+                background: isRevealed
+                  ? "linear-gradient(135deg, hsl(200 80% 55% / 0.15) 0%, hsl(200 70% 40% / 0.08) 100%)"
+                  : "hsl(210 40% 96% / 0.05)",
+                border: `1px solid ${isRevealed ? "hsl(200 80% 55% / 0.35)" : "hsl(215 20% 55% / 0.2)"}`,
+              }}
+            >
+              <IconComponent
+                className="w-6 h-6 transition-colors duration-500"
+                style={{
+                  color: isRevealed ? "hsl(200 80% 55%)" : "hsl(215 20% 55%)",
+                }}
+              />
+            </div>
+
+            <div className="space-y-1.5 pt-1">
+              <h3
+                className="text-2xl md:text-3xl font-semibold tracking-tight"
+                style={{ color: "var(--quest-text)" }}
+              >
+                {title}
+              </h3>
+              <p
+                className="text-base italic"
+                style={{ color: "var(--quest-text-muted)" }}
+              >
+                {subtitle}
+              </p>
+            </div>
           </div>
 
-          <div className="space-y-1">
-            <h3 className="text-2xl md:text-3xl font-semibold text-foreground">
-              {title}
-            </h3>
-            <p className="text-muted-foreground">{subtitle}</p>
+          {/* Proof cards grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {proofCards.map((card, index) => (
+              <ProofCard
+                key={card.title}
+                card={card}
+                index={index}
+                isRevealed={isRevealed}
+              />
+            ))}
           </div>
         </div>
 
-        {/* Proof cards grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {proofCards.map((card, index) => (
-            <ProofCard
-              key={card.title}
-              card={card}
-              index={index}
-              isUnlocked={isUnlocked}
-            />
-          ))}
-        </div>
+        {/* Settled glow ring at base */}
+        {isRevealed && <div className="glow-ring" />}
       </div>
     </div>
   );
