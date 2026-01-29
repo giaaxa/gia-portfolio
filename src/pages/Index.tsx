@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef } from "react";
-import { ArrowUpRight, Mail, Send, Instagram } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Mail, Send, Instagram, Play, ArrowDown, FileText } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Section, SectionHeader } from "@/components/Section";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,8 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ParallaxCard } from "@/components/ParallaxCard";
 import { useParallax } from "@/hooks/useParallax";
-import { UGCSection } from "@/components/UGCSection";
+import { BuildQuest } from "@/components/BuildQuest";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import manaverseLogo from "@/assets/manaverse-logo.png";
 import ibmTeam from "@/assets/ibm-team.png";
 import aestheticaLogo from "@/assets/aesthetica-logo.png";
@@ -53,7 +55,7 @@ const Index = () => {
     console.log("Form submitted:", formData);
   };
 
-  const chips = ["Ex-IBM", "First Class Econ", "ManaVerse Founder", "Data Analytics", "Building in Public"];
+  const chips = ["Ex-IBM", "ManaVerse Founder", "Data & AI", "Building in Public", "Shipping Weekly"];
 
   return (
     <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -61,7 +63,7 @@ const Index = () => {
       <ScrollProgress />
       <Navbar />
 
-      {/* Hero Section */}
+      {/* Hero Section - Founder Mode */}
       <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-6 overflow-hidden">
         {/* Subtle background gradient with parallax */}
         <div 
@@ -99,33 +101,60 @@ const Index = () => {
 
             <div className="flex-1">
               <div className="space-y-4">
-                <h1 className="animate-hero text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight">
-                  Hi, I'm Gia
+                <h1 className="animate-hero text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight">
+                  I'm building an Inner Operating System for the mind.
                 </h1>
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed animate-hero-delayed max-w-lg">
-                  Building products, systems, and content. Ex-IBM consultant. Founder of ManaVerse. Studying Data Analytics and AI.
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed animate-hero-delayed max-w-xl">
+                  Ex-IBM (SAP). Building ManaVerse / ManaShakti. Studying Data Analytics & AI. Shipping prototypes weekly.
                 </p>
               </div>
 
+              {/* 3 CTA Buttons */}
               <div className="flex flex-wrap gap-3 mt-6 animate-hero-delayed" style={{ animationDelay: '0.2s' }}>
-                <Button 
-                  asChild 
-                  className="rounded-full px-6 h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-medium touch-feedback"
-                >
-                  <a href="#work">View work</a>
-                </Button>
+                {/* Video Modal Button */}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button 
+                      className="rounded-full px-6 h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-medium touch-feedback"
+                    >
+                      <Play className="w-4 h-4 mr-2" />
+                      Watch 30s
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-3xl p-0 overflow-hidden bg-black border-0">
+                    <div className="aspect-video w-full">
+                      {/* Placeholder for video embed - replace with actual video URL */}
+                      <div className="w-full h-full flex items-center justify-center bg-card/50">
+                        <div className="text-center space-y-4">
+                          <Play className="w-16 h-16 mx-auto text-primary" />
+                          <p className="text-muted-foreground">Video coming soon</p>
+                        </div>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+
+                {/* Scroll to Proof */}
                 <Button 
                   asChild 
                   variant="outline" 
                   className="rounded-full px-6 h-11 border-foreground/15 text-foreground hover:bg-muted touch-feedback"
                 >
-                  <a 
-                    href="https://instagram.com/usecodegia" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Instagram className="w-4 h-4 mr-2" />
-                    Follow @usecodegia
+                  <a href="#proof">
+                    <ArrowDown className="w-4 h-4 mr-2" />
+                    Unlock Proof
+                  </a>
+                </Button>
+
+                {/* Case Study Link */}
+                <Button 
+                  asChild 
+                  variant="ghost" 
+                  className="rounded-full px-6 h-11 text-muted-foreground hover:text-foreground touch-feedback"
+                >
+                  <a href="#manaverse">
+                    <FileText className="w-4 h-4 mr-2" />
+                    ManaShakti case study
                   </a>
                 </Button>
               </div>
@@ -196,85 +225,8 @@ const Index = () => {
         </div>
       </Section>
 
-      {/* Build in Public Section */}
-      <Section id="content">
-        <div className="max-w-2xl mx-auto text-center reveal">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/5 border border-foreground/8 mb-6">
-            <Instagram className="w-7 h-7 text-primary" />
-          </div>
-          <h2 className="text-2xl md:text-3xl font-semibold mb-4">Building in Public</h2>
-          <p className="text-muted-foreground text-lg mb-8 max-w-lg mx-auto">
-            I share my journey on @usecodegia — mindset, business, tech, and systems. Follow along for real-time updates on what I'm building.
-          </p>
-          <Button 
-            asChild 
-            className="rounded-full px-8 h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
-          >
-            <a 
-              href="https://instagram.com/usecodegia" 
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Instagram className="w-4 h-4 mr-2" />
-              Follow @usecodegia
-            </a>
-          </Button>
-        </div>
-      </Section>
-
-      {/* Notes Section */}
-      <Section id="notes">
-        <SectionHeader 
-          title="Notes" 
-          subtitle="Thoughts on building, learning, and leading."
-        />
-        
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            {
-              title: "My working stack as a student founder",
-              description: "The tools and workflows I use daily to balance building ManaVerse with full-time study.",
-              tags: ["Productivity", "Founder"],
-            },
-            {
-              title: "Why I'm learning Python as a founder",
-              description: "Moving from strategy to execution. The case for founders who code.",
-              tags: ["Learning", "Tech"],
-            },
-            {
-              title: "Designing calm tech",
-              description: "How we approach product design at ManaVerse with intentionality.",
-              tags: ["Design", "ManaVerse"],
-            },
-          ].map((note, index) => (
-            <div
-              key={note.title}
-              className="reveal card-elevated-hover p-6 space-y-3"
-              style={{ transitionDelay: `${index * 0.1}s` }}
-            >
-              {/* Gradient cover instead of placeholder */}
-              <div 
-                className="aspect-[16/9] rounded-xl mb-4"
-                style={{
-                  background: `linear-gradient(135deg, hsl(224 76% 33% / ${0.08 + index * 0.03}), hsl(224 76% 45% / ${0.04 + index * 0.02}))`,
-                }}
-              />
-              <h3 className="font-semibold text-foreground">{note.title}</h3>
-              <p className="text-sm text-muted-foreground line-clamp-2">{note.description}</p>
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                {note.tags.map((tag) => (
-                  <span 
-                    key={tag} 
-                    className="text-xs px-2 py-1 rounded-full bg-primary/5 text-muted-foreground border border-foreground/6"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+      {/* Build Quest Section */}
+      <BuildQuest />
 
       {/* About Section */}
       <Section id="about">
@@ -379,9 +331,6 @@ const Index = () => {
         </div>
       </Section>
 
-      {/* UGC Section */}
-      <UGCSection />
-
       {/* Contact Section */}
       <Section id="contact">
         <div className="max-w-3xl mx-auto">
@@ -474,6 +423,12 @@ const Index = () => {
             © 2024 Gia Pereira
           </p>
           <div className="flex items-center gap-6">
+            <Link 
+              to="/ugc"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              UGC Services
+            </Link>
             <a 
               href="https://instagram.com/usecodegia" 
               target="_blank" 
