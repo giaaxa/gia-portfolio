@@ -100,7 +100,7 @@ export const Navbar = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-1 animate-fade-in bg-card rounded-2xl p-4 border border-foreground/8">
+          <div className="md:hidden mt-4 pb-4 space-y-1 animate-fade-in bg-card dark:bg-card/80 dark:backdrop-blur-xl rounded-2xl p-4 border border-foreground/8 dark:border-primary/15">
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -108,16 +108,16 @@ export const Navbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
                   activeSection === item.id
-                    ? "text-primary bg-primary/5"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "text-primary bg-primary/5 dark:bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-primary/5"
                 }`}
               >
                 {item.label}
               </a>
             ))}
             <div className="pt-2 px-4">
-              <Button 
-                asChild 
+              <Button
+                asChild
                 className="w-full rounded-full bg-primary hover:bg-primary/90"
                 onClick={() => setMobileMenuOpen(false)}
               >

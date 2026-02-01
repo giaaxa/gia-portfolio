@@ -35,11 +35,8 @@ export const ProjectCard = ({ title, outcome, tags, image, link, category, role,
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
             />
           ) : (
-            <div 
-              className="w-full h-full flex items-center justify-center p-6"
-              style={{
-                background: "linear-gradient(135deg, hsl(var(--primary) / 0.06), hsl(var(--primary) / 0.03))",
-              }}
+            <div
+              className="w-full h-full flex items-center justify-center p-6 bg-gradient-to-br from-primary/6 to-primary/3 dark:from-primary/12 dark:to-primary/5"
             >
               <span className="text-2xl font-semibold text-foreground/80 text-center">{title}</span>
             </div>
@@ -69,9 +66,9 @@ export const ProjectCard = ({ title, outcome, tags, image, link, category, role,
           {tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5 pt-1">
               {tags.map((tag) => (
-                <span 
-                  key={tag} 
-                  className="text-xs px-2 py-1 rounded-full bg-primary/5 text-muted-foreground border border-foreground/6"
+                <span
+                  key={tag}
+                  className="text-xs px-2 py-1 rounded-full bg-primary/5 dark:bg-primary/10 text-muted-foreground border border-foreground/6 dark:border-primary/15"
                 >
                   {tag}
                 </span>

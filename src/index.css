@@ -54,41 +54,45 @@
   }
 
   .dark {
-    /* Deep dark background */
+    /* Quest theme - Deep navy background */
     --background: 222 47% 6%;
     --foreground: 210 40% 96%;
 
-    /* Dark cards */
-    --card: 222 47% 9%;
+    /* Glass-style cards */
+    --card: 222 47% 10%;
     --card-foreground: 210 40% 96%;
 
-    --popover: 222 47% 9%;
+    --popover: 222 47% 10%;
     --popover-foreground: 210 40% 96%;
 
-    /* Lighter blue accent for dark mode */
-    --primary: 224 76% 55%;
+    /* Cyan accent for quest theme */
+    --primary: 200 80% 55%;
     --primary-foreground: 222 47% 6%;
 
-    /* Secondary elements */
-    --secondary: 222 47% 14%;
+    /* Secondary - teal accent */
+    --secondary: 170 60% 45%;
     --secondary-foreground: 210 40% 96%;
 
     /* Muted elements */
-    --muted: 222 47% 14%;
+    --muted: 222 47% 12%;
     --muted-foreground: 215 20% 55%;
 
-    /* Accent */
-    --accent: 224 76% 55%;
+    /* Accent - cyan glow */
+    --accent: 200 80% 55%;
     --accent-foreground: 222 47% 6%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Subtle borders for dark */
-    --border: 210 40% 96% / 0.10;
-    --border-hover: 210 40% 96% / 0.18;
-    --input: 210 40% 96% / 0.10;
-    --ring: 224 76% 55%;
+    /* Glass-style borders with cyan tint */
+    --border: 200 80% 55% / 0.15;
+    --border-hover: 200 80% 55% / 0.25;
+    --input: 200 80% 55% / 0.10;
+    --ring: 200 80% 55%;
+
+    /* Quest-specific variables for global use */
+    --glow: 200 80% 55%;
+    --glow-dim: 200 70% 40%;
   }
 }
 
@@ -150,11 +154,17 @@
 }
 
 @layer utilities {
-  /* Card styles */
+  /* Card styles - Glass effect in dark mode */
   .card-elevated {
     background: hsl(var(--card));
     border: 1px solid hsl(var(--foreground) / 0.10);
     border-radius: 1.25rem;
+  }
+
+  .dark .card-elevated {
+    background: hsl(var(--card) / 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--glow) / 0.12);
   }
 
   .card-elevated-hover {
@@ -165,6 +175,11 @@
     border-color: hsl(var(--foreground) / 0.15);
     box-shadow: 0 4px 16px -4px hsl(var(--foreground) / 0.06);
     transform: translateY(-2px);
+  }
+
+  .dark .card-elevated-hover:hover {
+    border-color: hsl(var(--glow) / 0.25);
+    box-shadow: 0 0 24px -8px hsl(var(--glow) / 0.2);
   }
 
   /* Animated underline for links */

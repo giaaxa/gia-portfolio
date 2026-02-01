@@ -60,7 +60,7 @@ const Index = () => {
   const chips = ["Ex-IBM", "ManaVerse Founder", "Shipping Weekly"];
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden dark:quest-grain">
       <CustomCursor />
       <ScrollProgress />
       <Navbar />
@@ -172,9 +172,9 @@ const Index = () => {
               {/* Chips */}
               <div className="flex flex-wrap gap-2 mt-5 animate-hero-delayed" style={{ animationDelay: '0.3s' }}>
                 {chips.map((chip) => (
-                  <span 
-                    key={chip} 
-                    className="text-xs px-3 py-1.5 rounded-full bg-primary/5 text-muted-foreground border border-foreground/8"
+                  <span
+                    key={chip}
+                    className="text-xs px-3 py-1.5 rounded-full bg-primary/5 dark:bg-primary/10 text-muted-foreground border border-foreground/8 dark:border-primary/20"
                   >
                     {chip}
                   </span>
@@ -278,9 +278,9 @@ const Index = () => {
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">Tools</h3>
             <div className="flex flex-wrap gap-2">
               {["Python", "SQL", "Power BI", "Figma", "Notion", "Canva", "CapCut", "DaVinci Resolve"].map((tool) => (
-                <span 
-                  key={tool} 
-                  className="px-3 py-1.5 text-sm rounded-full bg-card border border-foreground/10 text-muted-foreground hover:border-foreground/18 transition-colors"
+                <span
+                  key={tool}
+                  className="px-3 py-1.5 text-sm rounded-full bg-card dark:bg-card/50 border border-foreground/10 dark:border-primary/15 text-muted-foreground hover:border-foreground/18 dark:hover:border-primary/30 transition-colors"
                 >
                   {tool}
                 </span>
@@ -294,7 +294,7 @@ const Index = () => {
       <Section id="manaverse">
         <div className="space-y-12">
           <div className="reveal">
-            <span className="text-xs px-3 py-1.5 rounded-full bg-primary/8 text-primary border border-primary/12 mb-4 inline-block">
+            <span className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 mb-4 inline-block">
               Featured Project
             </span>
             <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
@@ -397,7 +397,7 @@ const Index = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
-                className="rounded-xl bg-card border-foreground/10 focus:border-primary h-11"
+                className="rounded-xl bg-card dark:bg-card/50 dark:backdrop-blur-sm border-foreground/10 dark:border-primary/20 focus:border-primary h-11"
               />
               <Input
                 type="email"
@@ -405,7 +405,7 @@ const Index = () => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
-                className="rounded-xl bg-card border-foreground/10 focus:border-primary h-11"
+                className="rounded-xl bg-card dark:bg-card/50 dark:backdrop-blur-sm border-foreground/10 dark:border-primary/20 focus:border-primary h-11"
               />
               <Textarea
                 placeholder="Your message"
@@ -413,7 +413,7 @@ const Index = () => {
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 required
                 rows={4}
-                className="rounded-xl bg-card border-foreground/10 focus:border-primary resize-none"
+                className="rounded-xl bg-card dark:bg-card/50 dark:backdrop-blur-sm border-foreground/10 dark:border-primary/20 focus:border-primary resize-none"
               />
               <Button 
                 type="submit" 
@@ -428,7 +428,7 @@ const Index = () => {
       </Section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-foreground/8">
+      <footer className="py-8 px-6 border-t border-foreground/8 dark:border-primary/10">
         <div className="max-w-[1180px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
             © 2025 Gia Pereira
