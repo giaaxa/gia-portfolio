@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Mail, Send, Instagram, Play, ArrowDown, FileText } from "lucide-react";
+import { ArrowUpRight, Mail, Send, Instagram, ArrowDown, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Section, SectionHeader } from "@/components/Section";
@@ -14,7 +14,6 @@ import { useParallax } from "@/hooks/useParallax";
 import { BuildQuest } from "@/components/BuildQuest";
 import { NeuralNetworkBg } from "@/components/NeuralNetworkBg";
 import { EcgPulseLine } from "@/components/EcgPulseLine";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import manaverseLogo from "@/assets/manaverse-logo.png";
 import ibmTeam from "@/assets/ibm-team.png";
 import aestheticaLogo from "@/assets/aesthetica-logo.png";
@@ -119,36 +118,12 @@ const Index = () => {
                 </p>
               </div>
 
-              {/* 3 CTA Buttons */}
+              {/* CTA Buttons */}
               <div className="flex flex-wrap gap-3 mt-6 animate-hero-delayed" style={{ animationDelay: '0.2s' }}>
-                {/* Video Modal Button */}
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button 
-                      className="rounded-full px-6 h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-medium touch-feedback"
-                    >
-                      <Play className="w-4 h-4 mr-2" />
-                      Watch 30s
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-3xl p-0 overflow-hidden bg-black border-0">
-                    <div className="aspect-video w-full">
-                      {/* Placeholder for video embed - replace with actual video URL */}
-                      <div className="w-full h-full flex items-center justify-center bg-card/50">
-                        <div className="text-center space-y-4">
-                          <Play className="w-16 h-16 mx-auto text-primary" />
-                          <p className="text-muted-foreground">Video coming soon</p>
-                        </div>
-                      </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-
-                {/* Scroll to Proof */}
-                <Button 
-                  asChild 
-                  variant="outline" 
-                  className="rounded-full px-6 h-11 border-foreground/15 text-foreground hover:bg-muted touch-feedback"
+                {/* Scroll to Proof - Primary */}
+                <Button
+                  asChild
+                  className="rounded-full px-6 h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-medium touch-feedback"
                 >
                   <a href="#proof">
                     <ArrowDown className="w-4 h-4 mr-2" />
