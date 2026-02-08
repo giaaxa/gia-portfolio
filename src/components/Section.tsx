@@ -4,16 +4,17 @@ interface SectionProps {
   id: string;
   children: ReactNode;
   className?: string;
-  fullHeight?: boolean;
+  sand?: boolean;
+  dark?: boolean;
 }
 
-export const Section = ({ id, children, className = "", fullHeight = false }: SectionProps) => {
+export const Section = ({ id, children, className = "", sand = false, dark = false }: SectionProps) => {
   return (
-    <section 
-      id={id} 
-      className={`py-[72px] md:py-[96px] px-6 ${fullHeight ? 'min-h-screen flex items-center' : ''} ${className}`}
+    <section
+      id={id}
+      className={`py-20 md:py-28 px-6 ${sand ? 'bg-sand-section' : ''} ${dark ? 'bg-dark-section' : ''} ${className}`}
     >
-      <div className="max-w-[1180px] mx-auto w-full">{children}</div>
+      <div className="max-w-[1080px] mx-auto w-full relative z-10">{children}</div>
     </section>
   );
 };
@@ -26,12 +27,12 @@ interface SectionHeaderProps {
 
 export const SectionHeader = ({ title, subtitle, align = 'left' }: SectionHeaderProps) => {
   return (
-    <div className={`mb-12 ${align === 'center' ? 'text-center' : ''}`}>
-      <h2 className="text-foreground mb-3">
+    <div className={`mb-14 ${align === 'center' ? 'text-center' : ''}`}>
+      <h2 className="font-serif text-charcoal mb-3">
         {title}
       </h2>
       {subtitle && (
-        <p className="text-lg text-muted-foreground max-w-2xl">
+        <p className="text-lg text-charcoal-light/60 max-w-xl">
           {subtitle}
         </p>
       )}

@@ -1,59 +1,49 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { UGCSection } from "@/components/UGCSection";
-import { Button } from "@/components/ui/button";
-import { ScrollProgress } from "@/components/ScrollProgress";
-import { CustomCursor } from "@/components/CustomCursor";
+import { Leaf } from "@/components/Botanicals";
 
 const UGC = () => {
   return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
-      <CustomCursor />
-      <ScrollProgress />
-      
+    <div className="relative min-h-screen overflow-x-hidden">
       {/* Simple nav with back button */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-xl border-b border-foreground/8">
-        <div className="max-w-[1180px] mx-auto px-6 py-4">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+        <div className="max-w-[1080px] mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <Button 
-              asChild 
-              variant="ghost" 
-              size="sm"
-              className="rounded-full text-muted-foreground hover:text-foreground"
+            <Link
+              to="/"
+              className="flex items-center gap-2 text-sm font-medium text-charcoal-light/60 hover:text-charcoal transition-colors"
             >
-              <Link to="/">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
-              </Link>
-            </Button>
-            <span className="text-sm font-medium text-foreground">UGC Services</span>
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </Link>
+            <span className="text-sm font-serif font-medium text-charcoal">UGC Services</span>
           </div>
         </div>
       </nav>
 
-      {/* Add padding for fixed nav */}
       <div className="pt-20">
         <UGCSection />
       </div>
 
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-foreground/8">
-        <div className="max-w-[1180px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
-            © 2024 Gia Pereira
-          </p>
+      <footer className="py-8 px-6 border-t border-sand-dark/30">
+        <div className="max-w-[1080px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2 text-sm text-charcoal-light/40">
+            <Leaf size={14} color="#CBD7C7" />
+            <span>Gia Pereira, 2025</span>
+          </div>
           <div className="flex items-center gap-6">
-            <Link 
+            <Link
               to="/"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm text-charcoal-light/40 hover:text-sage-dark transition-colors"
             >
               Home
             </Link>
-            <a 
-              href="https://instagram.com/usecodegia" 
-              target="_blank" 
+            <a
+              href="https://instagram.com/usecodegia"
+              target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm text-charcoal-light/40 hover:text-sage-dark transition-colors"
             >
               Instagram
             </a>
