@@ -460,9 +460,10 @@ const Index = () => {
                   description="Coordinated finance testing across global enterprise teams. Contributed to GenAI initiatives."
                   tags={["Consulting", "Finance", "AI"]}
                   image={ibmTeam}
-                  link="#about"
+                  link="https://gia-pereira.my.canva.site/work-portfolio"
                   role="Junior Consultant"
                   year="2023"
+                  external
                   cosmic
                 />
               </TiltCard>
@@ -475,9 +476,10 @@ const Index = () => {
                   description="Creative direction and brand strategy for a boutique design studio."
                   tags={["Brand", "Strategy", "Design"]}
                   image={aestheticaLogo}
-                  link="#about"
+                  link="https://gia-pereira.my.canva.site/work-portfolio"
                   role="Creative Director"
                   year="2022"
+                  external
                   cosmic
                 />
               </TiltCard>
@@ -497,6 +499,26 @@ const Index = () => {
             <span>
               Also built <span style={{ color: 'rgba(240, 238, 245, 0.6)' }}>Richual</span> — a venture exploring habit-building and daily rituals. Validated and pivoted into ManaVerse.
             </span>
+          </motion.div>
+
+          {/* CV Download */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={getVariants(fadeUp)}
+            custom={0.3}
+            className="mt-8 flex justify-center"
+          >
+            <a
+              href="/Gia_Pereira_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium px-6 py-3 rounded-full border border-cosmic-glow/30 text-cosmic-glow hover:border-cosmic-glow/60 hover:text-white active:scale-[0.98] transition-all duration-300 hover:shadow-[0_4px_30px_rgba(196,181,253,0.2)]"
+            >
+              <ArrowUpRight className="w-4 h-4" />
+              View my CV
+            </a>
           </motion.div>
         </div>
       </section>
