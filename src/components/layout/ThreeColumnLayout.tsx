@@ -25,7 +25,7 @@ export function ThreeColumnLayout({ left, center, right }: ThreeColumnLayoutProp
           </aside>
 
           {/* Center content */}
-          <main>
+          <main className="min-w-0">
             {center}
           </main>
 
