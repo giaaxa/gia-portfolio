@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { TypewriterText } from '@/components/ui/TypewriterText';
 import heroImage from '@/assets/hero-portrait.jpg';
 
 const sections = [
@@ -88,17 +89,22 @@ export function HeroContent() {
         </div>
 
         <motion.p
-          className="text-gray text-base mt-6"
+          className="text-gray text-base mt-6 min-h-[1.5em]"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          i'm a 23 y/o building at the intersection of wellness, technology, & creativity...
+          <TypewriterText
+            text="i'm a 23 y/o building at the intersection of wellness, technology, & consciousness"
+            speed={40}
+            deleteSpeed={20}
+            pauseDuration={3000}
+          />
         </motion.p>
       </div>
 
-      {/* Numbered sections */}
-      <div className="space-y-8">
+      {/* Numbered sections - 2x2 grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
         {sections.map((section, index) => (
           <motion.div
             key={section.number}
@@ -107,14 +113,14 @@ export function HeroContent() {
             initial="hidden"
             animate="visible"
           >
-            <div className="flex gap-3 mb-2">
+            <div className="flex gap-2 mb-1.5">
               <span className="text-sm font-semibold text-charcoal">[{section.number}]</span>
               <span className="text-sm font-semibold text-charcoal">{section.title}</span>
             </div>
-            <div className="ml-9 space-y-1">
+            <div className="ml-8 space-y-0.5">
               {section.bullets.map((bullet, i) => (
-                <p key={i} className="text-sm text-gray">
-                  <span className="text-lilac-500 mr-2">⊙</span>
+                <p key={i} className="text-sm text-gray leading-relaxed">
+                  <span className="text-lilac-500 mr-1.5">⊙</span>
                   {bullet}
                 </p>
               ))}
