@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { AnimatedText } from '@/components/ui/AnimatedText';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import heroImage from '@/assets/hero-portrait.jpg';
 
@@ -71,10 +70,22 @@ export function HeroContent() {
     <div className="space-y-12">
       {/* Hero text */}
       <div>
-        <AnimatedText
-          lines={['hi!', "i'm gia."]}
-          className="font-serif text-5xl md:text-7xl text-charcoal leading-[1.1]"
-        />
+        <div className="font-serif text-5xl md:text-7xl text-charcoal leading-[1.1]">
+          <motion.div
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            hi!
+          </motion.div>
+          <motion.div
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.3 }}
+          >
+            i'm <span className="text-lilac-500">gia</span>.
+          </motion.div>
+        </div>
 
         <motion.p
           className="text-gray text-base mt-6"
@@ -82,7 +93,7 @@ export function HeroContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          i'm a 24 y/o building at the intersection of wellness, technology, & creativity...
+          i'm a 23 y/o building at the intersection of wellness, technology, & creativity...
         </motion.p>
       </div>
 

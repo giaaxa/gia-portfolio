@@ -103,13 +103,14 @@
   .text-balance {
     text-wrap: balance;
   }
+}
 
-  /* Marquee animation */
-  .animate-marquee {
-    animation: marquee var(--marquee-duration, 30s) linear infinite;
+/* Marquee keyframes - must be outside @layer for inline style access */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
   }
-
-  .animate-marquee:hover {
-    animation-play-state: paused;
+  100% {
+    transform: translateX(-50%);
   }
 }
