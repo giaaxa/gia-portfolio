@@ -1,16 +1,17 @@
 import { motion, useScroll, useSpring } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-export const ScrollProgress = () => {
+export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) return null;
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[2px] z-[100] origin-left"
-      style={{
-        scaleX,
-        background: "linear-gradient(90deg, #8B9D83, #7BA5C1, #6B7D63)",
-      }}
+      className="fixed top-0 left-0 right-0 h-[2px] z-[100] origin-left bg-lilac-500"
+      style={{ scaleX }}
     />
   );
-};
+}

@@ -9,53 +9,46 @@ export default {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1080px",
+        "2xl": "1200px",
       },
     },
     extend: {
       fontFamily: {
         sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
-        serif: ['"Fraunces"', 'Georgia', 'serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
       },
       maxWidth: {
-        'container': '1080px',
+        'container': '1200px',
       },
       colors: {
-        cream: '#FEFDF8',
-        sand: '#F5F0E8',
-        'sand-dark': '#E8E0D4',
-        charcoal: '#2C2C2C',
-        'charcoal-light': '#4A4A4A',
-        sage: {
-          DEFAULT: '#8B9D83',
-          light: '#A8B5A2',
-          dark: '#6B7D63',
-          50: '#F2F5F1',
-          100: '#E5EBE3',
-          200: '#CBD7C7',
-          300: '#A8B5A2',
-          400: '#8B9D83',
-          500: '#6B7D63',
+        // Primary palette
+        white: '#FFFFFF',
+        'off-white': '#FAFAFA',
+        charcoal: '#1A1A1A',
+        gray: '#6B6B6B',
+        'light-gray': '#E5E5E5',
+
+        // Lilac accent system
+        lilac: {
+          50: '#F5F0FA',
+          100: '#EDE5F5',
+          200: '#DDD0EE',
+          300: '#C9B8E0',
+          500: '#9B7DC7',
+          600: '#7C5DAF',
+          700: '#5D4190',
         },
-        sky: {
-          DEFAULT: '#7BA5C1',
-          light: '#9BBDD5',
-          dark: '#5B8DAD',
-          50: '#F0F5F9',
-          100: '#E1EBF3',
-          200: '#C3D7E7',
-          400: '#7BA5C1',
+
+        // Deep purple footer
+        purple: {
+          800: '#2D1A4A',
+          900: '#1E1033',
         },
-        // Cosmic palette
-        cosmic: {
-          void: '#0a0a12',
-          deep: '#12101a',
-          nebula: '#1a1625',
-          indigo: '#4338ca',
-          violet: '#7c3aed',
-          purple: '#a855f7',
-          glow: '#c4b5fd',
-        },
+
+        // Special accents
+        'star-gold': '#E8D5A3',
+
+        // shadcn compatibility
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -91,8 +84,6 @@ export default {
         },
       },
       borderRadius: {
-        '2xl': '1rem',
-        '3xl': '1.5rem',
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
@@ -106,10 +97,15 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        marquee: 'marquee var(--marquee-duration, 30s) linear infinite',
       },
     },
   },
