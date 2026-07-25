@@ -1,54 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=Instrument+Serif:ital@0;1&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Rooted Clarity Design System
-   - Warm whites, sage greens, soft blues
-   - Organic shapes, generous whitespace
-   - Fraunces (serif display) + DM Sans (body)
-   - Botanical accents, paper texture
+/* Editorial Minimalist Design System
+   - White backgrounds with lilac accents
+   - Instrument Serif (display) + DM Sans (body)
+   - Three-column editorial layout
+   - Deep purple footer
 */
 
 @layer base {
   :root {
-    /* Warm cream background */
-    --background: 43 50% 98%;
-    --foreground: 0 0% 17%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
 
-    /* Sand-tinted cards */
-    --card: 36 33% 95%;
-    --card-foreground: 0 0% 17%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 10%;
 
-    --popover: 36 33% 95%;
-    --popover-foreground: 0 0% 17%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
 
-    /* Sage green primary */
-    --primary: 108 12% 56%;
+    --primary: 270 35% 63%;
     --primary-foreground: 0 0% 100%;
 
-    /* Soft sky blue secondary */
-    --secondary: 204 33% 62%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 270 25% 95%;
+    --secondary-foreground: 0 0% 10%;
 
-    /* Muted elements */
-    --muted: 36 20% 93%;
-    --muted-foreground: 30 5% 45%;
+    --muted: 270 10% 96%;
+    --muted-foreground: 0 0% 42%;
 
-    /* Accent - soft blue for CTAs */
-    --accent: 204 33% 62%;
+    --accent: 270 35% 63%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Soft warm borders */
-    --border: 30 10% 85%;
-    --input: 30 10% 85%;
-    --ring: 108 12% 56%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 270 35% 63%;
 
-    --radius: 1rem;
+    --radius: 0.5rem;
   }
 }
 
@@ -59,326 +52,64 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-white text-charcoal antialiased;
     font-family: 'DM Sans', system-ui, sans-serif;
-    font-size: 17px;
-    line-height: 1.75;
-    letter-spacing: -0.005em;
-    color: #2C2C2C;
-    background-color: #FEFDF8;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
-  /* Paper texture overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.025;
-    pointer-events: none;
-    z-index: 0;
+  /* Display typography - Instrument Serif */
+  .font-display {
+    font-family: 'Instrument Serif', Georgia, serif;
   }
 
-  h1, h2, h3, h4 {
-    font-family: 'Fraunces', Georgia, serif;
-    color: #2C2C2C;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+  h1, h2, h3 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    color: #1A1A1A;
+    line-height: 1.1;
   }
 
   h1 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 600;
+    font-size: clamp(3rem, 8vw, 4.5rem);
+    font-weight: 400;
   }
 
   h2 {
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
   }
 
   h3 {
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
-    font-weight: 500;
+    font-size: 1.25rem;
+    font-weight: 400;
   }
 
-  ::selection {
-    background: rgba(139, 157, 131, 0.2);
-  }
-
-  a, button, [role="button"], .cursor-pointer {
-    cursor: pointer;
-  }
-}
-
-/* Hide default cursor on desktop when custom cursor is active */
-@media (hover: hover) and (pointer: fine) {
-  body {
-    cursor: none !important;
-  }
-  a, button, [role="button"], .cursor-pointer, input, textarea, select {
-    cursor: none !important;
-  }
-}
-
-@layer components {
-  /* Organic card with soft shadow */
-  .card-organic {
-    background: #F5F0E8;
-    border-radius: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 4px 12px rgba(0, 0, 0, 0.02);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .card-organic:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 8px 32px rgba(0, 0, 0, 0.03);
-  }
-
-  /* White card variant */
-  .card-white {
-    background: white;
-    border-radius: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .card-white:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  }
-
-  /* Sand section background */
-  .bg-sand-section {
-    background: linear-gradient(180deg, #FEFDF8 0%, #F5F0E8 8%, #F5F0E8 92%, #FEFDF8 100%);
-  }
-
-  /* Dark section background — smooth gradient edges blend into cream */
-  .bg-dark-section {
-    background: linear-gradient(180deg, #FEFDF8 0%, #1a1a1a 5%, #141414 50%, #1a1a1a 95%, #FEFDF8 100%);
-  }
-
-  /* Animated underline for links */
-  .link-underline {
-    position: relative;
-    display: inline-block;
-  }
-
-  .link-underline::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    height: 1px;
-    width: 0;
-    background: #8B9D83;
-    transition: width 0.3s ease;
-  }
-
-  .link-underline:hover::after {
-    width: 100%;
-  }
-
-  /* Pillar card with left accent */
-  .pillar-card {
-    background: white;
-    border-radius: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    border-left: 3px solid #8B9D83;
-    padding: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .pillar-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(139, 157, 131, 0.08);
-  }
-
-  /* Cosmic card variant */
-  .card-cosmic {
-    background: rgba(26, 22, 37, 0.6);
-    backdrop-filter: blur(12px);
-    border-radius: 1rem;
-    border: 1px solid rgba(124, 58, 237, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-
-  .card-cosmic:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 32px rgba(124, 58, 237, 0.2), 0 0 60px rgba(124, 58, 237, 0.1);
-    border-color: rgba(124, 58, 237, 0.3);
-  }
-
-  /* Cosmic text colors */
-  .text-cosmic-primary {
-    color: #f0eef5;
-  }
-
-  .text-cosmic-secondary {
-    color: rgba(240, 238, 245, 0.65);
-  }
-
-  .text-cosmic-muted {
-    color: rgba(240, 238, 245, 0.4);
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
 @layer utilities {
-  .card-elevated {
-    background: #F5F0E8;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    border-radius: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  .text-balance {
+    text-wrap: balance;
   }
 
-  .card-elevated-hover {
-    background: #F5F0E8;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    border-radius: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-    transition: all 0.3s ease;
+  /* Marquee animation */
+  .animate-marquee {
+    animation: marquee var(--marquee-duration, 30s) linear infinite;
   }
 
-  .card-elevated-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    border-color: rgba(139, 157, 131, 0.15);
-  }
-}
-
-/* Marquee animation */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-
-/* Gradient flow animation */
-@keyframes gradient-flow {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
-}
-
-.animate-gradient-flow {
-  animation: gradient-flow 4s linear infinite;
-}
-
-/* Star twinkle animation */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
-}
-
-.animate-twinkle {
-  animation: twinkle 3s ease-in-out infinite;
-}
-
-/* Cosmic section backgrounds */
-.bg-cosmic-section {
-  background: linear-gradient(180deg, #0a0a12 0%, #12101a 50%, #1a1625 100%);
-  position: relative;
-}
-
-/* Gradient transition from cosmic to light */
-.cosmic-to-light {
-  background: linear-gradient(180deg,
-    #1a1625 0%,
-    #1f1a2e 20%,
-    #2a2235 40%,
-    #4a3f5a 60%,
-    #8a7a9a 75%,
-    #c4b5c8 85%,
-    #e8e0d4 92%,
-    #F5F0E8 100%
-  );
-  height: 200px;
-}
-
-/* Gradient transition from light to cosmic */
-.light-to-cosmic {
-  background: linear-gradient(180deg,
-    #F5F0E8 0%,
-    #e8e0d4 8%,
-    #c4b5c8 15%,
-    #8a7a9a 25%,
-    #4a3f5a 40%,
-    #2a2235 60%,
-    #1f1a2e 80%,
-    #1a1625 100%
-  );
-  height: 200px;
-}
-
-/* Gradient from cream to cosmic */
-.cream-to-cosmic {
-  background: linear-gradient(180deg,
-    #FEFDF8 0%,
-    #f0ebe0 10%,
-    #d8d0c4 20%,
-    #a89db0 35%,
-    #6a5a7a 50%,
-    #3a2f4a 65%,
-    #1f1a2e 80%,
-    #12101a 100%
-  );
-  height: 180px;
-}
-
-/* Gradient from cosmic to cream */
-.cosmic-to-cream {
-  background: linear-gradient(180deg,
-    #12101a 0%,
-    #1f1a2e 20%,
-    #3a2f4a 35%,
-    #6a5a7a 50%,
-    #a89db0 65%,
-    #d8d0c4 80%,
-    #f0ebe0 90%,
-    #FEFDF8 100%
-  );
-  height: 180px;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #FEFDF8;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(44, 44, 44, 0.12);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(44, 44, 44, 0.2);
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Mobile touch feedback */
-@media (hover: none) and (pointer: coarse) {
-  .touch-feedback:active {
-    transform: scale(0.98);
-    opacity: 0.9;
-    transition: transform 0.1s ease;
+  .animate-marquee:hover {
+    animation-play-state: paused;
   }
 }
