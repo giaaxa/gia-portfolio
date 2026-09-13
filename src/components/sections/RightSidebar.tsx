@@ -46,6 +46,16 @@ export function RightSidebar() {
         >
           book a call ✦
         </motion.a>
+
+        <motion.a
+          href="/Gia_Pereira_CV.docx"
+          download
+          className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-charcoal border border-charcoal rounded-full hover:bg-charcoal hover:text-white transition-all duration-200"
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          download CV ↓
+        </motion.a>
       </div>
 
       {/* ManaVerse status */}
